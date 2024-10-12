@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# crearing a working folder
+mkdir ~/project/enhancers
+mkdir ~/project/enhancers/all_regulatory
+
+# downloading bed file for putative regulatory elements in monocytes (not annotated, instead "High H3K27ac/Low H3K27ac)
+wget https://www.encodeproject.org/files/ENCFF420VPZ/@@download/ENCFF420VPZ.bed.gz
+
+# downloading bed file with annotated putative regulatory elements in human genome
+wget https://www.encodeproject.org/files/ENCFF420VPZ/@@download/ENCFF420VPZ.bed.gz
+gzip -d ENCFF420VPZ.bed.gz
+
 # filtering out unclassified regulatory elements
 awk -F"\t" '$10!="Unclassified" {print $0}' ENCFF900YFA.bed > ENCFF900YFA_classified.bed
 
