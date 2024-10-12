@@ -1,3 +1,9 @@
+#!/bin/bash
+
+# creating a working dirrectory
+mkdir /home/avasileva/project/se/spacers
+cd /home/avasileva/project/se/spacers
+
 # Save each SE to a separate file
 sort -k14,14 se_e_filtered.bed | uniq -f 13 --group | awk -v RS="\n\n" '{
    filename = "/home/avasileva/temp/output_" ++count ".txt"
