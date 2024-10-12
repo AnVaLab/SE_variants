@@ -10,11 +10,9 @@ bedtools intersect -loj -a ~/project/enhancers/te_monocytes.bed \
 
 # this will leave information about SE enhancer elements and typical enhancers
 
-te_monocytes.bed
-
 # разделяем энхансеры и СЭ в разные файлы, чтобы с ними было проще работать, по отдельности
-awk '$(NF-1)=="SE" {print $0}' /home/avasileva/project/combined_annotation/enhancers_refined_se_e.bed > se_e.bed;
-awk '$(NF-1)!="SE" {print $0}' /home/avasileva/project/combined_annotation/enhancers_refined_se_e.bed > e.bed;
+awk '$(NF-1)=="SE" {print $0}' /home/avasileva/project/combined_annotation/enhancers_refined_se_e.bed > /home/avasileva/project/se/se_e_elements.bed;
+awk '$(NF-1)!="SE" {print $0}' /home/avasileva/project/combined_annotation/enhancers_refined_se_e.bed > /home/avasileva/project/enhancers/te_only.bed;
 
 
 # считаем число энхансеров в каждом СЭ
