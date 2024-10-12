@@ -2,8 +2,6 @@
 
 ## crearing a working folder
 mkdir ~/project/enhancers
-mkdir ~/project/enhancers/all_regulatory
-
 cd  ~/project/enhancers
 
 ### downloading bed files with
@@ -19,18 +17,18 @@ mv ENCFF420VPZ.bed ENCFF420VPZ_all.bed
 
 ## filtration
 # filtering out unclassified regulatory elements
-awk -F"\t" '$10!="Unclassified" {print $0}' ENCFF900YFA.bed > ENCFF900YFA_classified.bed
+awk -F"\t" '$10!="Unclassified" {print $0}' ENCFF900YFA_monocytes.bed > ENCFF900YFA_monocytes_classified.bed
 
 # filtering out non-enhancers
 # checking if elements in ENCFF900YFA.bed.gz and ENCFF420VPZ.bed.gz overlap exactly
 # number of regulatory elements in ENCFF900YFA_classified.bed file
-cat ENCFF900YFA_classified.bed | wc -l
+cat ENCFF900YFA_monocytes_classified.bed | wc -l
 # 149692
 
-bedops -e 100% ./all_regulatory/ENCFF420VPZ.bed ./ENCFF900YFA_classified.bed | wc -l
+bedops -e 100% ENCFF420VPZ_all.bed ENCFF900YFA_monocytes_classified.bed | wc -l
 # 149692
 
 # yes, all elements from file for monocytes exist in file for genome
 
 # leaving only enhancers
-bedops -e 100% ./all_regulatory/ENCFF420VPZ.bed ./ENCFF900YFA_classified.bed | grep -E "dELS|pELS" > te_monocytes.bed
+bedops -e 100% ENCFF420VPZ_all.bed ENCFF900YFA_monocytes_classified.bed | grep -E "dELS|pELS" > te_monocytes.bed
