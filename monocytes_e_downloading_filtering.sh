@@ -24,7 +24,9 @@ awk -F"\t" '$10!="Unclassified" {print $0}' ENCFF900YFA_monocytes_sorted.bed > E
 # checking if ENCFF420VPZ_all.bed (annotation of all putative regulatory elements of human genome) contains PRE of ENCFF900YFA.bed (PRE in monocytes)
 # number of regulatory elements in ENCFF900YFA_classified.bed file
 cat ENCFF900YFA_monocytes_sorted_classified.bed | wc -l
+# 149692
 bedops -e 100% /home/avasileva/project/genome_ann/encode/ENCFF420VPZ_all_sorted.bed ENCFF900YFA_monocytes_sorted_classified.bed | wc -l
+# 149692
 # yes, all elements from file for monocytes exist in file for genome
 
 # leaving only distal and proximal enhancer like sites
