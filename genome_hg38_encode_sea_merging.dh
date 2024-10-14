@@ -1,13 +1,7 @@
 #!/bin/bash
 
-# what devops accepts as input???
-# sorted or it will sort??????
-
 # entering the working folder
 cd /home/avasileva/project/genome_ann
 
 # merging genome annotation and encode annotation
-bedops --merge ENCFF420VPZ_all.bed genecode.v21.annotation.genes.bed > hg38_encode_ann_merged.bed
-
-# merging resulting file with SEA genome annotation
-bedops --merge hg38_encode_ann_merged.bed SEA00101_no_record_numb_sorted.bed > hg38_encode_SE_ann_merged.bed
+bedops --merge ENCFF420VPZ_all.bed genecode.v21.annotation.genes.bed SEA00101_no_record_numb_sorted.bed > hg38_encode_sea_ann_merged.bed
