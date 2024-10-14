@@ -23,6 +23,6 @@ awk -F”\t” '{if ($(NF-1)=="SE") print $0}' SEA00101_no_record_numb.bed > TE_
 # this file further will be used only to compare it with ENCODE elements to veriry E coordinates
 
 ## 5 sorting
-bedtools sort -i SEA00101_no_record_numb.bed.bed > SEA00101_sorted.bed
+bedtools sort -i SEA00101_no_record_numb.bed > SEA00101_sorted.bed
 bedtools sort -i SE_only_SEA00101.bed > SE_only_SEA00101_sorted.bed
 bedtools sort -i TE_only_SEA00101.bed > TE_only_SEA00101_sorted.bed
