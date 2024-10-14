@@ -9,7 +9,7 @@ cd /home/avasileva/project/genome_ann/original
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_21/gencode.v21.annotation.gtf.gz
 gzip -d gencode.v21.annotation.gtf.gz 
 
-# 2. converting gtf annotation to bed format
+## 2. converting gtf annotation to bed format
 # creating a working folder
 mkdir -p /home/avasileva/project/genome_ann/processed
 cd /home/avasileva/project/genome_ann/processed
