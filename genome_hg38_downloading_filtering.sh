@@ -28,7 +28,6 @@ awk '{type[$8]++} END{for(t in type) print t, type[t]}' gencode.v21.annotation.b
 #transcript 196327
 
 ## 3. filtering
-
 # filtering genome annotaion
 # leaving only gene records
 awk '{if ($8=="gene") {print $0}}' gencode.v21.annotation.bed > genecode.v21.annotation.genes.bed
