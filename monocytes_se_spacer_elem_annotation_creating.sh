@@ -6,6 +6,8 @@ cd /home/avasileva/project/se/spacers
 
 ## 2. saving each SE to a separate file
 ########################ПРИ ЛЮБЫХ ИЗМЕНЕНИЯХ BED ФАЙЛОВ ПРОВЕРИТЬ ЧТОБЫ ЭТИ ПОЛЯ НЕ СЪЕХАЛИ
+awk '{print $14}' se_e_filtered.bed | head -2
+
 sort -k14,14 se_e_filtered.bed | uniq -f 13 --group | awk -v RS="\n\n" '{
    filename = "/home/avasileva/temp/output_" ++count ".txt"
    print $0 > filename
