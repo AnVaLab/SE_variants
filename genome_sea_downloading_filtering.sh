@@ -12,6 +12,8 @@ wget http://218.8.241.248:8080/SEA3/download/SEA00101.bed
 
 ## 3. removing first column containing record serial number
 cut -f2- SEA00101.bed > SEA00101_no_record_numb.bed
+#########################3 check!!!!!!!!!!!!!!!1 is it the 1st column or the second that was removed??????
+
 
 ## 4 filtering 
 # filtering records by the regulatory element type, saving SE to a separate file
