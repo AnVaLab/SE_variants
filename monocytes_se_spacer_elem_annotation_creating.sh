@@ -12,6 +12,8 @@ sort -k14,14 se_e_filtered.bed | uniq -f 13 --group | awk -v RS="\n\n" '{
 }' 
 
 ## 3. creating file with complement (SE spacers)
+
+###### ПРОВЕРИТЬ ДОП ПОЛЯ!!!!!!!!!!!!!!!!!!!!!!!
 for filename in /home/avasileva/temp/*; \
 do \
 variable=$(awk 'NR==1 {for (i = 11; i <= NF; i++) {printf "%s\t ", $i}; printf "\n"}' "$filename");  \
