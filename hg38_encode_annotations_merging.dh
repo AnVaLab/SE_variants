@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# creating a working folder
-mkdir -p /home/avasileva/project/genome_ann
+# entring the working dirrectory
 cd /home/avasileva/project/genome_ann
 
 # merging genome annotation and encode annotation
