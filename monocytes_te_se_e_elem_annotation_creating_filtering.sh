@@ -57,4 +57,4 @@ END {
 }' se_e.bed >  se_e_filtered.bed
 
 # result veridication
-awk -F"\t" '{se[$se_id_field]++} END {for (s in se) print s, se[s]}' se_e_filtered.bed | sort -nk2 | head -10
+awk -F"\t" -v se_id_field="$se_id_field" '{se[$se_id_field]++} END {for (s in se) print s, se[s]}' se_e_filtered.bed | sort -nk2 | head -10
