@@ -1,22 +1,21 @@
 #!/bin/bash
 
-### 1. downloading
-# crearing a working folder
+## 1. crearing a working folder
 mkdir -p /home/avasileva/project/monocytes/enhancers
 cd  /home/avasileva/project/monocytes/enhancers
 
+## 2. downloading
 # downloading ENCODE annotation of putative regulatory elements in monocytes (pre not annotated, instead "High H3K27ac/Low H3K27ac)
 wget https://www.encodeproject.org/files/ENCFF900YFA/@@download/ENCFF900YFA.bed.gz
 gzip -d ENCFF900YFA.bed.gz
 mv ENCFF900YFA.bed ENCFF900YFA_monocytes.bed
 
-### 2. processing
 ## 2.1 sorting
-
+bedtools sort -i ENCFF900YFA_monocytes.bed > ENCFF900YFA_monocytes_sorted.bed
 
 ## 2.2 filtering
 # filtering out unclassified regulatory elements
-awk -F"\t" '$10!="Unclassified" {print $0}' ENCFF900YFA_monocytes.bed > ENCFF900YFA_monocytes_classified.bed
+awk -F"\t" '$10!="Unclassified" {print $0}' ENCFF900YFA_monocytes_sorted.bed > ENCFF900YFA_monocytes_sorted_classified.bed
 
 # leaving only enhancers (filtering out non-enhancers)
 # ENCFF900YFA.bed contains PRE without annotation, and therefore, aside from enhancers, it can include promoters, TE binding sites etc.
@@ -24,9 +23,10 @@ awk -F"\t" '$10!="Unclassified" {print $0}' ENCFF900YFA_monocytes.bed > ENCFF900
 
 # checking if ENCFF420VPZ_all.bed (annotation of all putative regulatory elements of human genome) contains PRE of ENCFF900YFA.bed (PRE in monocytes)
 # number of regulatory elements in ENCFF900YFA_classified.bed file
-cat ENCFF900YFA_monocytes.bed | wc -l
-bedops -e 100% /home/avasileva/project/genome_ann/ENCFF420VPZ_all.bed ENCFF900YFA_monocytes.bed | wc -l
+cat ENCFF900YFA_monocytes_sorted_classified.bed | wc -l
+bedops -e 100% /home/avasileva/project/genome_ann/encode/ENCFF420VPZ_all_sorted.bed ENCFF900YFA_monocytes_sorted_classified.bed | wc -l
 # yes, all elements from file for monocytes exist in file for genome
 
 # leaving only distal and proximal enhancer like sites
-bedops -e 100% /home/avasileva/project/genome_ann/ENCFF420VPZ_all.bed ENCFF900YFA_monocytes_classified.bed | grep -E "dELS|pELS" > e_monocytes.bed
+bedops -e 100% /home/avasileva/project/genome_ann/encode/ENCFF420VPZ_all_sorted.bed ENCFF900YFA_monocytes_classified_sorted.bed | grep -E "dELS|pELS" > e_monocytes.bed
+# the output file is sorted
