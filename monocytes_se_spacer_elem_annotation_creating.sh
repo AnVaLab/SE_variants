@@ -1,25 +1,28 @@
 #!/bin/bash
 
-## 1. creating a working dirrectory
-mkdir /home/avasileva/project/se/spacers
-cd /home/avasileva/project/se/spacers
-
-
-## 2. saving each SE to a separate file
-## 1. creating a working dirrectory
+## splitting SE to separate files
+# creating a working dirrectory
 mkdir /home/avasileva/project/temp
 cd /home/avasileva/project/temp
 rm -r *
 
+# getting a field number containing SE id
 string="hg38"
 se_id_field="$(awk -v b="$string" '{for (i=1; i<=NF; i++) { if ($i ~ b) { print i; exit } }}' se_e.bed)"
 
-sort -k"$se_id_field","$se_id_field" se_e_filtered.bed | uniq -f $((se_id_field-1)) --group | awk -v RS="\n\n" '{
+# saving each SE to a separate file
+sort -k"$se_id_field","$se_id_field" se_e_filtered.bed | \
+uniq -f $((se_id_field-1)) --group | \
+awk -v RS="\n\n" '{
    filename = "/home/avasileva/temp/output_" ++count ".txt"
    print $0 > filename
 }' 
 
-## 3. creating file with complement (SE spacers)
+## creating file with complement (SE spacers)
+
+# creating a working directory
+mkdir /home/avasileva/project/se/spacers
+cd /home/avasileva/project/se/spacers
 
 # что такое i=11?
 for filename in /home/avasileva/temp/*; \
