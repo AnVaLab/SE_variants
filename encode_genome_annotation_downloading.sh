@@ -1,7 +1,9 @@
 #!/bin/bash
 
+# ENCODE annotation contains annotated putative regulatory regions of the human genome
+
 # creating a working folder
-mkdir /home/avasileva/project/genome_ann
+mkdir -p /home/avasileva/project/genome_ann
 cd /home/avasileva/project/genome_ann
 
 # downloading annotated putative regulatory elements in human genome from ENCODE
@@ -11,7 +13,7 @@ gzip -d ENCFF420VPZ.bed.gz
 mv ENCFF420VPZ.bed ENCFF420VPZ_all.bed
 
 # exploring downloaded files
-awk '{type[$NF]++} END{for (t in type) {print t, type[t]}}' ENCFF420VPZ.bed 
+awk '{type[$NF]++} END{for (t in type) {print t, type[t]}}' ENCFF420VPZ_all.bed 
 #PLS 47532
 #CA-H3K4me3 79246
 #CA-TF 26102
