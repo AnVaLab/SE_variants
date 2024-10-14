@@ -1,1 +1,4 @@
 #!/bin/bash
+
+sudo apt-get install bedtools
+sudo apt-get install bedops
