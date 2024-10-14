@@ -4,7 +4,8 @@
 cd /home/avasileva/project/genome_ann/processed
 
 # merging genome annotation and encode annotation
-bedops --merge ENCFF420VPZ_all_sorted.bed \
-genecode.v21.annotation_sorted.genes.bed \
-SEA00101_no_record_numb_sorted.bed > \
+bedops --merge \
+ENCFF420VPZ_all_sorted.bed \
+genecode.v21.annotation.genes_sorted.bed \
+SEA00101_sorted.bed > \
 hg38_encode_sea_ann_merged.bed
