@@ -26,13 +26,22 @@ mkdir -p /home/avasileva/project/monocytes/se
 cd  /home/avasileva/project/monocytes/se
 
 ## 5. counting number of enhancers in each SE
-awk -F"\t" '{se[$(NF-15)]++} END {for (s in se) print s, se[s]}' se_e.bed | sort -nk2 > se_elem_numb.txt
+# finding field number containing SE ids (they start with hg38)
+string="hg38"
+se_id_field="$(awk -v b="$string" '{for (i=1; i<=NF; i++) { if ($i ~ b) { print i; exit } }}' se_e.bed)"
+echo "$se_id_field"
+# 14
+awk -F"\t" -v se_id_field="$se_id_field" '{print $se_id_field; exit}' se_e.bed
+# hg38_CD14PM_chr1_1726914
+
+# number of enhancers in a SE
+awk -F"\t" -v se_id_field="$se_id_field" '{se[$se_id_field]++} END {for (s in se) print s, se[s]}' se_e.bed | sort -nk2 > se_elem_numb.txt
 
 ## 6. removing SE with only 1 enhancer
-awk -F"\t" '{
-    count[$(NF-15)]++
+awk -F"\t" -v se_id_field="$se_id_field" '{
+    count[$se_id_field]++
     records[NR] = $0  # Сохраняем каждую запись
-    se_id[NR] = $(NF-15)
+    se_id[NR] = $se_id_field
 } 
 # here NR equals the total number of records
 END {
@@ -48,4 +57,4 @@ END {
 }' se_e.bed >  se_e_filtered.bed
 
 # result veridication
-awk -F"\t" '{se[$(NF-15)]++} END {for (s in se) print s, se[s]}' se_e_filtered.bed | sort -nk2 | head -10
+awk -F"\t" '{se[$se_id_field]++} END {for (s in se) print s, se[s]}' se_e_filtered.bed | sort -nk2 | head -10
