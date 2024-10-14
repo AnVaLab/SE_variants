@@ -4,8 +4,8 @@
 
 ### 1. downloading
 # creating a working folder
-mkdir -p /home/avasileva/project/genome_ann/original
-cd /home/avasileva/project/genome_ann/original
+mkdir -p /home/avasileva/project/genome_ann/encode
+cd /home/avasileva/project/genome_ann/encode
 
 # downloading annotated putative regulatory elements in human genome from ENCODE
 wget https://www.encodeproject.org/files/ENCFF420VPZ/@@download/ENCFF420VPZ.bed.gz
@@ -26,9 +26,5 @@ awk '{type[$NF]++} END{for (t in type) {print t, type[t]}}' ENCFF420VPZ_all.bed
 #TF 105286
 
 ### 2. processing
-# creating a working folder
-mkdir -p /home/avasileva/project/genome_ann/processed
-cd /home/avasileva/project/genome_ann/processed
-
 ## 2.1 sorting 
-bedtools sort -i /home/avasileva/project/genome_ann/original/ENCFF420VPZ_all.bed > ENCFF420VPZ_all_sorted.bed
+bedtools sort -i ENCFF420VPZ_all.bed > ENCFF420VPZ_all_sorted.bed
