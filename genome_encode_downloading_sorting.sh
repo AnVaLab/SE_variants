@@ -29,4 +29,4 @@ awk '{type[$NF]++} END{for (t in type) {print t, type[t]}}' ENCFF420VPZ_all.bed
 bedtools sort -i ENCFF420VPZ_all.bed > ENCFF420VPZ_all_sorted.bed
 
 # file beginning
-# cat ENCFF420VPZ_all_sorted.bed | head
+cat ENCFF420VPZ_all_sorted.bed | head
