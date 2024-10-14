@@ -1,11 +1,13 @@
 #!/bin/bash
 
 # entering the working folder
-cd /home/avasileva/project/genome_ann/processed
+# creating a working folder
+mkdir -p /home/avasileva/project/genome_ann/merged
+cd /home/avasileva/project/genome_ann/merged
 
 # merging genome annotation and encode annotation
 bedops --merge \
-ENCFF420VPZ_all_sorted.bed \
-genecode.v21.annotation.genes_sorted.bed \
-SEA00101_sorted.bed > \
+/home/avasileva/project/genome_ann/processed/ENCFF420VPZ_all_sorted.bed \
+/home/avasileva/project/genome_ann/processed/genecode.v21.annotation.genes_sorted.bed \
+/home/avasileva/project/genome_ann/processed/SEA00101_sorted.bed > \
 hg38_encode_sea_ann_merged.bed
