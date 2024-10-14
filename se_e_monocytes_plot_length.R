@@ -1,3 +1,5 @@
+#### ADD WORKING DIRECTORY PROPERLY
+
 layout(mat = matrix(c(1,2), ncol=1))
 
 se_bed <- as.data.frame(read.table("/home/an/Documents/Work/SE/SE_only_cd14plus_monocyte_norownumb_SEA00101.bed",header = FALSE, sep="\t",stringsAsFactors=FALSE, quote=""))
