@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## crearing a working folder
+# crearing a working folder
 mkdir -p /home/avasileva/project/enhancers
 cd  /home/avasileva/project/enhancers
 
@@ -9,7 +9,7 @@ wget https://www.encodeproject.org/files/ENCFF900YFA/@@download/ENCFF900YFA.bed.
 gzip -d ENCFF900YFA.bed.gz
 mv ENCFF900YFA.bed ENCFF900YFA_monocytes.bed
 
-## filtration
+# filtration
 # filtering out unclassified regulatory elements
 awk -F"\t" '$10!="Unclassified" {print $0}' ENCFF900YFA_monocytes.bed > ENCFF900YFA_monocytes_classified.bed
 
