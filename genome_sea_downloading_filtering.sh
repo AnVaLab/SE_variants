@@ -19,8 +19,10 @@ awk -F”\t” '{if ($(NF-1)=="SE") print $0}' SEA00101_no_record_numb.bed > SE_
 # SEA only provides infortmation on start and end coordinates of SEs and does not provide infortmation on SE elements 
 
 # filtering records by the regulatory element type, saving E to a separate file
-awk -F”\t” '{if ($(NF-1)=="SE") print $0}' SEA00101_no_record_numb.bed > E_only_SEA00101.bed
+awk -F”\t” '{if ($(NF-1)=="SE") print $0}' SEA00101_no_record_numb.bed > TE_only_SEA00101.bed
 # this file further will be used only to compare it with ENCODE elements to veriry E coordinates
 
 ## 5 sorting
+bedtools sort -i SEA00101_no_record_numb.bed.bed > SEA00101_sorted.bed
 bedtools sort -i SE_only_SEA00101.bed > SE_only_SEA00101_sorted.bed
+bedtools sort -i TE_only_SEA00101.bed > TE_only_SEA00101_sorted.bed
