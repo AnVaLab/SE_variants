@@ -8,6 +8,9 @@ cd /home/avasileva/project/se/spacers
 ########################ПРИ ЛЮБЫХ ИЗМЕНЕНИЯХ BED ФАЙЛОВ ПРОВЕРИТЬ ЧТОБЫ ЭТИ ПОЛЯ НЕ СЪЕХАЛИ
 awk '{print $14}' se_e_filtered.bed | head -2
 
+string="hg38"
+awk -v b="$string" '{for (i=1;i<=NF;i++) { if ($i ~ b) { print i } }}' se_e_filtered.bed | head -1
+
 sort -k14,14 se_e_filtered.bed | uniq -f 13 --group | awk -v RS="\n\n" '{
    filename = "/home/avasileva/temp/output_" ++count ".txt"
    print $0 > filename
