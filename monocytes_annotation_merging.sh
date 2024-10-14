@@ -17,6 +17,12 @@ echo "${te_sample_size}"
 # select 101634 lines (make sample size equal to the one of enhancers)
 shuf -n "${te_sample_size}"  /home/avasileva/project/genome_ann/bg/bg_all_fields.bed >  /home/avasileva/project/genome_ann/bg/bg_sampled.bed
 
+# 3. Appending last column to te and se files
+################################# УБРАТЬ ЭТО ОТСЮДА
+# based on condition add a value to a new column (TY/SE_E)
+awk -v OFS='\t' '{if($(NF-1)=="SE") {print $0, "SE_E"} else {print $0, "TE"}}' /home/avasileva/project/combined_annotation/enhancers_refined_se_e_filtered.bed > /home/avasileva/project/combined_annotation/enhancers_refined_se_e_filtered_marked.bed
+
+
 ## 3. combining annotations
 cat /home/avasileva/project/genome_ann/bg/bg_sampled.bed > combined_annotation.bed
 cat /home/avasileva/project/monocytes/se/se_e_filtered.bed >> combined_annotation.bed
