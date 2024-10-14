@@ -22,6 +22,3 @@ transcript 196327
 # filtering genome annotaion
 # leaving only gene records
 awk '{if ($8=="gene") {print $0}}' gencode.v21.annotation.bed > genecode.v21.annotation.genes.bed
-
-# merging genome annotation and encode annotation
-bedops --merge /home/avasileva/project/enhancers/all_regulatory/ENCFF420VPZ.bed /home/avasileva/project/hg38/genecode.v21.annotation.genes.bed > reg_elem_gene_ann_merged.bed
