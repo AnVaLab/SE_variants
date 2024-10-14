@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # crearing a working folder
-mkdir -p /home/avasileva/project/enhancers
-cd  /home/avasileva/project/enhancers
+mkdir -p /home/avasileva/project/monocytes/enhancers
+cd  /home/avasileva/project/monocytes/enhancers
 
 # downloading ENCODE annotation of putative regulatory elements in monocytes (pre not annotated, instead "High H3K27ac/Low H3K27ac)
 wget https://www.encodeproject.org/files/ENCFF900YFA/@@download/ENCFF900YFA.bed.gz
@@ -20,8 +20,8 @@ awk -F"\t" '$10!="Unclassified" {print $0}' ENCFF900YFA_monocytes.bed > ENCFF900
 # checking if ENCFF420VPZ_all.bed (annotation of all putative regulatory elements of human genome) contains PRE of ENCFF900YFA.bed (PRE in monocytes)
 # number of regulatory elements in ENCFF900YFA_classified.bed file
 cat ENCFF900YFA_monocytes.bed | wc -l
-bedops -e 100% ENCFF420VPZ_all.bed ENCFF900YFA_monocytes.bed | wc -l
+bedops -e 100% /home/avasileva/project/genome_ann/ENCFF420VPZ_all.bed ENCFF900YFA_monocytes.bed | wc -l
 # yes, all elements from file for monocytes exist in file for genome
 
 # leaving only distal and proximal enhancer like sites
-bedops -e 100% ENCFF420VPZ_all.bed ENCFF900YFA_monocytes_classified.bed | grep -E "dELS|pELS" > te_monocytes.bed
+bedops -e 100% /home/avasileva/project/genome_ann/ENCFF420VPZ_all.bed ENCFF900YFA_monocytes_classified.bed | grep -E "dELS|pELS" > e_monocytes.bed
