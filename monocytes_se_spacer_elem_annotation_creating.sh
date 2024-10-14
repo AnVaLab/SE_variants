@@ -4,21 +4,24 @@
 mkdir /home/avasileva/project/se/spacers
 cd /home/avasileva/project/se/spacers
 
+
 ## 2. saving each SE to a separate file
-########################ПРИ ЛЮБЫХ ИЗМЕНЕНИЯХ BED ФАЙЛОВ ПРОВЕРИТЬ ЧТОБЫ ЭТИ ПОЛЯ НЕ СЪЕХАЛИ
-awk '{print $14}' se_e_filtered.bed | head -2
+## 1. creating a working dirrectory
+mkdir /home/avasileva/project/temp
+cd /home/avasileva/project/temp
+rm -r *
 
 string="hg38"
-awk -v b="$string" '{for (i=1;i<=NF;i++) { if ($i ~ b) { print i } }}' se_e_filtered.bed | head -1
+se_id_field="$(awk -v b="$string" '{for (i=1; i<=NF; i++) { if ($i ~ b) { print i; exit } }}' se_e.bed)"
 
-sort -k14,14 se_e_filtered.bed | uniq -f 13 --group | awk -v RS="\n\n" '{
+sort -k"$se_id_field","$se_id_field" se_e_filtered.bed | uniq -f $((se_id_field-1)) --group | awk -v RS="\n\n" '{
    filename = "/home/avasileva/temp/output_" ++count ".txt"
    print $0 > filename
 }' 
 
 ## 3. creating file with complement (SE spacers)
 
-###### ПРОВЕРИТЬ ДОП ПОЛЯ!!!!!!!!!!!!!!!!!!!!!!!
+# что такое i=11?
 for filename in /home/avasileva/temp/*; \
 do \
 variable=$(awk 'NR==1 {for (i = 11; i <= NF; i++) {printf "%s\t ", $i}; printf "\n"}' "$filename");  \
