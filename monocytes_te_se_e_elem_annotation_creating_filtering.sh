@@ -14,18 +14,23 @@ bedtools intersect \
 te_se_e.bed 
 # this file contains information about SE enhancer elements and typical enhancers
 
-## 3. splitting information on TE and SE E elements into separate files
-awk '$(NF-1)=="SE" {print $0}' te_se_e.bed > /home/avasileva/project/monocytes/se/se_e.bed;
-awk '$(NF-1)!="SE" {print $0}' te_se_e.bed > /home/avasileva/project/monocytes/enhancers/te.bed;
+# 3. Appending last column to te and se files
+# based on condition add a value to a new column (TY/SE_E)
+awk -v OFS='\t' \
+'{if($(NF-1)=="SE") {print $0, "SE_E"} else {print $0, "TE"}}' te_se_e.bed > \
+te_se_e_marked.bed
 
+## 4. splitting information on TE and SE E elements into separate files
+grep "SEA" te_se_e_marked.bed > /home/avasileva/project/monocytes/se/se_e.bed;
+grep -v "SEA" te_se_e_marked.bed > /home/avasileva/project/monocytes/enhancers/te.bed;
 # Since enhancer coordinated differ in SEA and ENCODE inconcistencies were witnessed: in some SE start/end coordinates did not overlap enhancers,
 # some SE concist only out of 1 ENCODE enhancer, which contradicts SE definition. We decided to exclude those SE.
 
-## 4. creating working folder
+## 5. creating working folder
 mkdir -p /home/avasileva/project/monocytes/se
 cd  /home/avasileva/project/monocytes/se
 
-## 5. counting number of enhancers in each SE
+## 6. counting number of enhancers in each SE
 # finding field number containing SE ids (they start with hg38)
 string="hg38"
 se_id_field="$(awk -v b="$string" '{for (i=1; i<=NF; i++) { if ($i ~ b) { print i; exit } }}' se_e.bed)"
