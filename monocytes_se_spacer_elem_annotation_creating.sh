@@ -24,21 +24,17 @@ awk -v RS="\n\n" '{
 mkdir /home/avasileva/project/se/spacers
 cd /home/avasileva/project/se/spacers
 
-Подобно метасимволу ?, звездочка (*) обозначает необязательный элемент; однако, в отличие от знака вопроса, этот элемент может встречаться любое число раз, а не только единожды. Рассмотрим предыдущий пример, используя вместо знака вопроса звездочку:
-
-sed 's/.* \(chr.*\)/\1/'
-
-
-"\tchr*"
-
-# что такое i=11?
+# finding complement
 for filename in /home/avasileva/temp/*; \
-do \
-variable=$(awk 'NR==1 {for (i = 11; i <= NF; i++) {printf "%s\t ", $i}; printf "\n"}' "$filename");  \
+do cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'; done
+
+
+variable=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); \
 bedops --complement  "$filename" | \
 awk  -v var="$variable" '{print $0 "\t.\t.\t.\t.\t.\t.\t.\t" var "SE_S"}' >> \
 se_spacers.bed; \
 done 
+# variable here is meta info about SE, to which spacers belong
 
 ## 4. annotating spacers (SE spacers overlap with genes and regulatory elements, this information is important to consider in variation alalysis)
 
