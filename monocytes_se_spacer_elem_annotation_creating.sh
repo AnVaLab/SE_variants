@@ -2,19 +2,19 @@
 
 ## splitting SE to separate files
 # creating a working dirrectory
-mkdir /home/avasileva/project/temp
+mkdir -p /home/avasileva/project/temp
 cd /home/avasileva/project/temp
-rm -r *
+rm -rf ./*
 
 # getting a field number containing SE id
 string="hg38"
-se_id_field="$(awk -v b="$string" '{for (i=1; i<=NF; i++) { if ($i ~ b) { print i; exit } }}' se_e.bed)"
+se_id_field="$(awk -v b="$string" '{for (i=1; i<=NF; i++) { if ($i ~ b) { print i; exit } }}' /home/avasileva/project/monocytes/se/se_e_filtered.bed)"
 
 # saving each SE to a separate file
-sort -k"$se_id_field","$se_id_field" se_e_filtered.bed | \
+sort -k"$se_id_field","$se_id_field" /home/avasileva/project/monocytes/se/se_e_filtered.bed | \
 uniq -f $((se_id_field-1)) --group | \
 awk -v RS="\n\n" '{
-   filename = "/home/avasileva/temp/output_" ++count ".txt"
+   filename = "/home/avasileva/project/temp/output_" ++count ".txt"
    print $0 > filename
 }' 
 
@@ -25,7 +25,7 @@ mkdir /home/avasileva/project/se/spacers
 cd /home/avasileva/project/se/spacers
 
 # finding complement
-for filename in /home/avasileva/temp/*; \
+for filename in /home/avasileva/project/temp/*; \
 do cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'; done
 
 
