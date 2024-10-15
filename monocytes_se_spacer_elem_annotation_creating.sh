@@ -2,8 +2,8 @@
 
 ## splitting SE to separate files
 # creating a working dirrectory
-mkdir -p /home/avasileva/project/temp
-cd /home/avasileva/project/temp
+mkdir -p /home/avasileva/temp
+cd /home/avasileva/temp
 rm -rf ./*
 
 # getting a field number containing SE id
@@ -14,24 +14,28 @@ se_id_field="$(awk -v b="$string" '{for (i=1; i<=NF; i++) { if ($i ~ b) { print 
 sort -k"$se_id_field","$se_id_field" /home/avasileva/project/monocytes/se/se_e_filtered.bed | \
 uniq -f $((se_id_field-1)) --group | \
 awk -v RS="\n\n" '{
-   filename = "/home/avasileva/project/temp/output_" ++count ".txt"
+   filename = "/home/avasileva/temp/output_" ++count ".txt"
    print $0 > filename
 }' 
 
 ## creating file with complement (SE spacers)
 
 # creating a working directory
-mkdir /home/avasileva/project/se/spacers
-cd /home/avasileva/project/se/spacers
+mkdir -p /home/avasileva/project/monocytes/se/spacers
+cd /home/avasileva/project/monocytes/se/spacers
 
 # finding complement
-for filename in /home/avasileva/project/temp/*; \
+for filename in /home/avasileva/temp/*; \
 do \
-variable=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); \
+se_info=$(cat "$filename" | head -1 | sed 's/\(.*\t\)chr.*/\1/' | sed 's/\t*\t/.\t/'); echo "$se_info"; done
+
+cat "$filename" | head -1 ; done
+se_info=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); echo "$se_info"; done\
+e_info=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/' ); \
 bedops --complement  "$filename" | \
 
 #### number of fields!!!
-awk  -v var="$variable" '{print $0 "\t.\t.\t.\t.\t.\t.\t.\t" var "SE_S"}' >> \
+awk  -v var="$se_info" '{print $0 "\t.\t.\t.\t.\t.\t.\t.\t" se_info "SE_S"}' >> \
 se_spacers.bed; \
 done 
 # variable here is meta info about SE, to which spacers belong
