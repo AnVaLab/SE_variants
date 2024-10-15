@@ -26,11 +26,11 @@ cd /home/avasileva/project/se/spacers
 
 # finding complement
 for filename in /home/avasileva/project/temp/*; \
-do cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'; done
-
-
+do \
 variable=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); \
 bedops --complement  "$filename" | \
+
+#### number of fields!!!
 awk  -v var="$variable" '{print $0 "\t.\t.\t.\t.\t.\t.\t.\t" var "SE_S"}' >> \
 se_spacers.bed; \
 done 
