@@ -23,7 +23,7 @@ awk -v RS="\n\n" '{
 # creating a working directory
 mkdir -p /home/avasileva/project/monocytes/se/spacers
 cd /home/avasileva/project/monocytes/se/spacers
-touch se_spacers.bed
+> se_spacers.bed
 
 # finding complement
 for filename in /home/avasileva/temp/*; \
@@ -32,7 +32,7 @@ se_info=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); echo "
 te_field_numb=$(cat "$filename" | head -1 | sed 's/\(.*\)\tchr.*/\1/' | awk -F"\t" '{print (NF-3)}') ; \
 te_info=$( printf ".\t"'%.0s' $(seq 1 "$te_field_numb")); echo "$te_info"; \
 bedops --complement  "$filename" | \
-awk  -v te="$te_info" se="$se_info"  '{print $0  te se}' >> \
+awk  -F"\t" -v te="$te_info" -v se="$se_info"  '{print $0 "\t" te se}' >> \
 se_spacers.bed; \
 done 
 # variable here is meta info about SE, to which spacers belong
@@ -44,10 +44,12 @@ bedtools sort \
 -i /home/avasileva/project/combined_annotation/se_spacers.bed > \
 /home/avasileva/project/combined_annotation/se_spacers_sorted.bed
 
+# finding genes in spacers
 bedtools intersect \
--b /home/avasileva/project/combined_annotation/se_spacers_sorted.bed \
--a /home/avasileva/project/hg38/genecode.v21.annotation.genes_sorted.bed > \
-intersected_ann_spacers.bed
+-a se_spacers_sorted.bed \
+-b /home/avasileva/project/genome_ann/hg38/genecode.v21.annotation.genes_sorted.bed > \
+intersectedann_spacers.bed
+
 
 # intersecting spacers with regulatory regions
 bedtools intersect \
