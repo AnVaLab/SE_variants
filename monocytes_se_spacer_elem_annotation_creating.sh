@@ -23,19 +23,16 @@ awk -v RS="\n\n" '{
 # creating a working directory
 mkdir -p /home/avasileva/project/monocytes/se/spacers
 cd /home/avasileva/project/monocytes/se/spacers
+touch se_spacers.bed
 
 # finding complement
 for filename in /home/avasileva/temp/*; \
 do \
-se_info=$(cat "$filename" | head -1 | sed 's/\(.*\)\tchr.*/\1/' | awk -F"\t" '{print (NF-3)}') ; echo "$se_info"; done
-
-cat "$filename" | head -1 ; done
-se_info=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); echo "$se_info"; done\
-e_info=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/' ); \
+se_info=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); echo "$se_info"; \
+te_field_numb=$(cat "$filename" | head -1 | sed 's/\(.*\)\tchr.*/\1/' | awk -F"\t" '{print (NF-3)}') ; \
+te_info=$( printf ".\t"'%.0s' $(seq 1 "$te_field_numb")); echo "$te_info"; \
 bedops --complement  "$filename" | \
-
-#### number of fields!!!
-awk  -v var="$se_info" '{print $0 "\t.\t.\t.\t.\t.\t.\t.\t" se_info "SE_S"}' >> \
+awk  -v te="$te_info" se="$se_info"  '{print $0  te se}' >> \
 se_spacers.bed; \
 done 
 # variable here is meta info about SE, to which spacers belong
