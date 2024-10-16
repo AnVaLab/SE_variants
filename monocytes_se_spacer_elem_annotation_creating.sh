@@ -64,4 +64,7 @@ bedtools sort -i se_spacers_annotated.bed > se_spacers_annotated_sorted.bed
 
 
 # checking the result in igv (on local pc)
-
+scp -i '/home/anastasia/Downloads/avasileva.txt' avasileva@51.250.11.65:/home/avasileva/project/monocytes/se/spacers/se_spacers_annotated_sorted.bed ~/Documents/SE;
+scp -i '/home/anastasia/Downloads/avasileva.txt' avasileva@51.250.11.65:/home/avasileva/project/monocytes/se/spacers/se_spacers_gene_pre_sorted.bed ~/Documents/SE;
+scp -i '/home/anastasia/Downloads/avasileva.txt' avasileva@51.250.11.65:/home/avasileva/project/monocytes/se/spacers/se_spacers_nothing.bed ~/Documents/SE;
+scp -i '/home/anastasia/Downloads/avasileva.txt' avasileva@51.250.11.65:/home/avasileva/project/monocytes/se/se_e_filtered.bed ~/Documents/SE;
