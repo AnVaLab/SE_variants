@@ -5,7 +5,7 @@ cd /home/avasileva/project/monocytes/combined_annotation
 
 ## 4. unifying bed file (so it all fields are the same as in other annotation files) 
 awk -v OFS="\t" \
-'{print $0 ".\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t" "bg"}' /home/avasileva/project/genome_ann/bg/bg_all_chopped.bed > \
+'{print $0 "\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t.\t" "bg"}' /home/avasileva/project/genome_ann/bg/bg_all_chopped.bed > \
 /home/avasileva/project/genome_ann/bg/bg_all_fields.bed
 
 ## 2. sub-sampling (making bg sample size equal to typical enhancer sample size)
@@ -33,4 +33,4 @@ cat /home/avasileva/project/monocytes/enhancers/te.bed >> combined_annotation.be
 bedtools sort -i combined_annotation.bed > combined_annotation_sorted.bed
 
 # visualizing
-scp -i '/home/anastasia/Downloads/avasileva.txt' avasileva@51.250.11.65:/home/avasileva/project/monocytes/combined_annotation/combined_annotation_sorted  .bed /home/anastasia/Documents/SE;
+scp -i '/home/anastasia/Downloads/avasileva.txt' avasileva@51.250.11.65:/home/avasileva/project/monocytes/combined_annotation/combined_annotation_sorted.bed /home/anastasia/Documents/SE;
