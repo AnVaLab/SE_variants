@@ -28,11 +28,11 @@ cd /home/avasileva/project/monocytes/se/spacers
 # finding complement
 for filename in /home/avasileva/temp/*; \
 do \
-se_info=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); echo "$se_info"; \
+se_info=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); \
 te_field_numb=$(cat "$filename" | head -1 | sed 's/\(.*\)\tchr.*/\1/' | awk -F"\t" '{print (NF-3)}') ; \
-te_info=$( printf ".\t"'%.0s' $(seq 1 "$te_field_numb")); echo "$te_info"; \
+te_info=$( printf ".\t"'%.0s' $(seq 1 "$te_field_numb")); \
 bedops --complement  "$filename" | \
-awk  -F"\t" -v te="$te_info" -v se="$se_info"  '{print $0 "\t" te se}' >> \
+awk  -F"\t" -v te="$te_info" -v se="$se_info" '{print $0 "\t" te se}' >> \
 se_spacers.bed; \
 done 
 # variable here is meta info about SE, to which spacers belong
