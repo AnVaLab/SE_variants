@@ -40,9 +40,7 @@ done
 ## 4. annotating spacers (SE spacers overlap with genes and regulatory elements, this information is important to consider in variation alalysis)
 
 # sort file
-bedtools sort \
--i /home/avasileva/project/combined_annotation/se_spacers.bed > \
-/home/avasileva/project/combined_annotation/se_spacers_sorted.bed
+bedtools sort -i se_spacers.bed > se_spacers_sorted.bed
 
 # finding genes in spacers
 bedtools intersect \
