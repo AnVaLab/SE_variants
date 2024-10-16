@@ -42,27 +42,25 @@ done
 # sort file
 bedtools sort -i se_spacers.bed > se_spacers_sorted.bed
 
-# finding genes in spacers
-bedtools intersect \
--a se_spacers_sorted.bed \
--b /home/avasileva/project/genome_ann/hg38/genecode.v21.annotation.genes_sorted.bed |\
-awk -F"\t" -v OFS="\t" '{$4="gene"; print}' > \
-se_spacers_genes.bed
-
-# sort file
-bedtools sort -i se_spacers_genes.bed > se_spacers_genes_sort.bed
-
 # intersecting spacers with regulatory regions
 bedtools intersect \
 -a se_spacers_sorted.bed \
--b /home/avasileva/project/genome_ann/encode/ENCFF420VPZ_all.bed |
-awk -F"\t" -v OFS="\t" '{$4="pre"; print}' > \
-se_spacers_pse.bed
+-b /home/avasileva/project/genome_ann/encode/ENCFF420VPZ_all.bed /home/avasileva/project/genome_ann/hg38/genecode.v21.annotation.genes_sorted.bed |
+awk -F"\t" -v OFS="\t" '{$4="gene_or_pre"; print}' > \
+se_spacers_gene_pre.bed
 
 # sort file
-bedtools sort -i se_spacers_pse.bed > se_spacers_pse_sorted.bed
+bedtools sort -i se_spacers_gene_pre.bed > se_spacers_gene_pre_sorted.bed
 
-# some elements intersect both: pre and genes
+# find only generegions
+bedtools subtract -a se_spacers_sorted.bed -b se_spacers_gene_pre_sorted.bed > se_spacers_nothing.bed
+
+# combining
+echo se_spacers_gene_pre_sorted.bed > se_spacers_annotated.bed
+echo se_spacers_nothing.bed >> se_spacers_annotated.bed
+
+# sort file
+bedtools sort -i se_spacers_annotated.bed > se_spacers_annotated_sorted.bed
 
 
 ####### finish and check the result in igv
