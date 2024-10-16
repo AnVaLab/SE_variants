@@ -27,7 +27,7 @@ cd /home/avasileva/project/monocytes/se/spacers
 # finding complement
 for filename in /home/avasileva/temp/*; \
 do \
-se_info=$(cat "$filename" | head -1 | sed 's/\(.*\t\)chr.*/\1/' | sed 's/\t*\t/.\t/'); echo "$se_info"; done
+se_info=$(cat "$filename" | head -1 | sed 's/\(.*\)\tchr.*/\1/' | awk -F"\t" '{print (NF-3)}') ; echo "$se_info"; done
 
 cat "$filename" | head -1 ; done
 se_info=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); echo "$se_info"; done\
