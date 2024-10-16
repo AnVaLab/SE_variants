@@ -45,14 +45,24 @@ bedtools sort -i se_spacers.bed > se_spacers_sorted.bed
 # finding genes in spacers
 bedtools intersect \
 -a se_spacers_sorted.bed \
--b /home/avasileva/project/genome_ann/hg38/genecode.v21.annotation.genes_sorted.bed > \
-intersectedann_spacers.bed
+-b /home/avasileva/project/genome_ann/hg38/genecode.v21.annotation.genes_sorted.bed |\
+awk -F"\t" -v OFS="\t" '{$4="gene"; print}' > \
+se_spacers_genes.bed
 
+# sort file
+bedtools sort -i se_spacers_genes.bed > se_spacers_genes_sort.bed
 
 # intersecting spacers with regulatory regions
 bedtools intersect \
--b /home/avasileva/project/combined_annotation/se_spacers_sorted.bed \
--a /home/avasileva/project/enhancers/all_regulatory/ENCFF420VPZ.bed > \
-intersected_reg_spacers.bed
+-a se_spacers_sorted.bed \
+-b /home/avasileva/project/genome_ann/encode/ENCFF420VPZ_all.bed |
+awk -F"\t" -v OFS="\t" '{$4="pre"; print}' > \
+se_spacers_pse.bed
+
+# sort file
+bedtools sort -i se_spacers_pse.bed > se_spacers_pse_sorted.bed
+
+# some elements intersect both: pre and genes
+
 
 ####### finish and check the result in igv
