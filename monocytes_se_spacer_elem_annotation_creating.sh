@@ -56,11 +56,12 @@ bedtools sort -i se_spacers_gene_pre.bed > se_spacers_gene_pre_sorted.bed
 bedtools subtract -a se_spacers_sorted.bed -b se_spacers_gene_pre_sorted.bed > se_spacers_nothing.bed
 
 # combining
-echo se_spacers_gene_pre_sorted.bed > se_spacers_annotated.bed
-echo se_spacers_nothing.bed >> se_spacers_annotated.bed
+cat se_spacers_gene_pre_sorted.bed > se_spacers_annotated.bed
+cat se_spacers_nothing.bed >> se_spacers_annotated.bed
 
 # sort file
 bedtools sort -i se_spacers_annotated.bed > se_spacers_annotated_sorted.bed
 
 
-####### finish and check the result in igv
+# checking the result in igv (on local pc)
+
