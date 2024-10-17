@@ -4,7 +4,5 @@ sudo apt-get install bedtools
 sudo apt-get install bedops
 sudo apt-get install parallel
 
-# Download latest version
 wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip
-# Unzip file
 unzip snpEff_latest_core.zip
