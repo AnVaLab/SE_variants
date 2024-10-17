@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mkdir -p /home/avasileva/programs
+cd /home/avasileva/programs
+
 sudo apt-get install bedtools
 sudo apt-get install bedops
 sudo apt-get install parallel
