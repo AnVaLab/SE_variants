@@ -9,3 +9,6 @@ awk '{print "https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2
 
 # downloading vcf files
 wget -i download_links_vcf_1000Genomes30xGRCh38.csv
+
+# exploring downloaded files
+zcat HG00096.haplotypeCalls.er.raw.vcf.gz | head -10000
