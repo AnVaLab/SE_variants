@@ -4,8 +4,6 @@ mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated
 
 cd /home/avasileva/project/variants/vcf_1000_genomes_filtered
 
-
-
 # SnpEff
 screen -S annotation
 ls *.vcf |
