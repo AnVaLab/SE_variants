@@ -23,14 +23,14 @@ grep -ivP '\t<NON_REF>\t' {} > {}.temp && \
 mv {}.temp {} && \
 echo '{} completed'
 "
+cd ~/project/variants/vcf_1000_genomes_filtered/
 
 # appending headers
 screen -S adding_header
 ls *.vcf |  parallel -j 100 --plus "\
 zcat ~/project/variants/vcf_1000_genomes/{#filtered_}.gz | \
-awk '{if (\$0~/^#/) {print} else exit}' |
-cat - ~/project/variants/vcf_1000_genomes_filtered/{}
-> \
-~/project/variants/vcf_1000_genomes_filtered_header/"vcf_1000_genomes_filtered_header/{}.temp'
-mv {}.tmp {}
-"
+awk '{if (\$0~/^#/) {print} else exit}' | \
+cat - {} > \
+{}.temp && \
+mv {}.temp {} && \
+echo '{} completed'"
