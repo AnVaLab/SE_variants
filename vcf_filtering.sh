@@ -32,6 +32,12 @@ cut -f 1-10 {} > ~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp 
 mv ~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp ~/project/variants/vcf_1000_genomes_filtered_formatted/{} && \
 echo '{} completed'"
 
+ls *.vcf |
+parallel -j 100 "\
+grep 'SEA' {} && echo {}
+"
+cd ~/project/variants/vcf_1000_genomes_filtered/
+
 # appending headers
 cd ~/project/variants/vcf_1000_genomes_filtered_formatted
 screen -S adding_header
