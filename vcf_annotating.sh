@@ -1,17 +1,18 @@
 #!/bin/bash
 
 mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated
-cd /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated
 
-cd /home/avasileva/programs/snpEff
+cd /home/avasileva/project/variants/vcf_1000_genomes_filtered
+
+
 
 # SnpEff
 screen -S annotation
 ls *.vcf |
-parallel -j 7 "\
+parallel -j 50 "\
 java -Xmx8g -jar /home/avasileva/programs/snpEff/snpEff.jar \
--c /home/avasileva/programs/snpEff/snpEff.config -v GRCh37.75 {} > \
-{.}.ann.vcf"
+-c /home/avasileva/programs/snpEff/snpEff.config -v hg38 {} > \
+/home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated/{.}.ann.vcf"
 
 
 
