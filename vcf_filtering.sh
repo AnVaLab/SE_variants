@@ -21,11 +21,19 @@ ls *.vcf |
 parallel -j 100 "\
 grep -ivP '\t<NON_REF>\t' {} > {}.temp && \
 mv {}.temp {} && \
-echo '{} completed'
-"
-cd ~/project/variants/vcf_1000_genomes_filtered/
+echo '{} completed'"
+
+# removing last columns with reg element annotation
+mkdir -p ~/project/variants/vcf_1000_genomes_filtered_formatted
+screen -S formatting
+ls *.vcf |
+parallel -j 100 "\
+cut -f 1-10 {} > ~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp && \
+mv ~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp ~/project/variants/vcf_1000_genomes_filtered_formatted/{} && \
+echo '{} completed'"
 
 # appending headers
+cd ~/project/variants/vcf_1000_genomes_filtered_formatted
 screen -S adding_header
 ls *.vcf |  parallel -j 100 --plus "\
 zcat ~/project/variants/vcf_1000_genomes/{#filtered_}.gz | \
