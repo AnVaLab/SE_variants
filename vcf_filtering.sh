@@ -10,8 +10,6 @@ bedtools intersect -wa -wb \
 -b /home/avasileva/project/monocytes/combined_annotation/combined_annotation.bed > \
 ~/project/variants/vcf_1000_genomes_filtered/filtered_{}'
 
-cd ~/project/variants/vcf_1000_genomes_filtered/
-
 # removing lines with <ref only>
 ls *.vcf |
 parallel -j 7 "\
