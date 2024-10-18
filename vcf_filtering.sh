@@ -28,7 +28,7 @@ mkdir -p ~/project/variants/vcf_1000_genomes_filtered_formatted
 screen -S formatting
 ls *.vcf |
 parallel -j 100 "\
-cut -f 1-10 {} > ~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp && \
+cat {} | sed 's/\(.*\)\tchr.*/\1/') > ~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp && \
 mv ~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp ~/project/variants/vcf_1000_genomes_filtered_formatted/{} && \
 echo '{} completed'"
 
