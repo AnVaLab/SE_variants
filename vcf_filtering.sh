@@ -3,55 +3,34 @@
 mkdir -p ~/project/variants/vcf_1000_genomes_filtered
 cd ~/project/variants/vcf_1000_genomes_filtered/
 
+screen -S filtration 
 ls *.vcf.gz | \
 parallel -j 7 '\
 bedtools intersect -wa -wb \
 -a ~/project/variants/vcf_1000_genomes/{} \
 -b /home/avasileva/project/monocytes/combined_annotation/combined_annotation.bed > \
 ~/project/variants/vcf_1000_genomes_filtered/filtered_{}'
+# Ctrl+a+d # выйти из screen
+# screen -ls
+# screen -r 4833.DOWNLOAD_RAW # to come back to screen
+# screen -X -S 13240.DOWNLOAD_raw quit  #удалить фоновое окно
 
 # removing lines with <ref only>
+screen -S filtration_ref
 ls *.vcf |
-parallel -j 7 "\
-grep -ivP '\t<NON_REF>\t' {} > {}.temp; \
-mv {}.tmp {}
+parallel -j 100 "\
+grep -ivP '\t<NON_REF>\t' {} > {}.temp && \
+mv {}.temp {} && \
+echo '{} completed'
 "
 
-
-mkdir -p ~/project/variants/vcf_1000_genomes_filtered/vcf_1000_genomes_filtered_header
-cd ~/project/variants/vcf_1000_genomes_filtered/
-
 # appending headers
-ls *.vcf |  parallel -j 8 --plus "\
+screen -S adding_header
+ls *.vcf |  parallel -j 100 --plus "\
 zcat ~/project/variants/vcf_1000_genomes/{#filtered_}.gz | \
 awk '{if (\$0~/^#/) {print} else exit}' |
 cat - ~/project/variants/vcf_1000_genomes_filtered/{}
 > \
-~/project/variants/vcf_1000_genomes_filtered_header/"vcf_1000_genomes_filtered_header/header_{}'
+~/project/variants/vcf_1000_genomes_filtered_header/"vcf_1000_genomes_filtered_header/{}.temp'
+mv {}.tmp {}
 "
-
-
-
-
-ls *.vcf | 
-parallel -j 4 --plus "\
-zcat ~/project/variants/vcf_1000_genomes/{#filtered_}.gz | \
-awk '$0~/^#/ {print}'" |\
-cat - ~/project/variants/vcf_1000_genomes_filtered/{}
-> \
-~/project/variants/vcf_1000_genomes_filtered/"vcf_1000_genomes_filtered_header/header_{}'
-
-
-
-
-
-
-# intersecting vcf and bed files
-# leaving only mutations in SE enhancer elements (taken from ENCODE)
-for i in "${vcf_files[@]}"; \
-do \
-~/programs/bedtools2/bin/bedtools intersect -wa -wb \
--a ~/project/variants/vcf_1000_genomes/$i \
--b /home/avasileva/project/monocytes/combined_annotation/combined_annotation.bed > \
-~/project/variants/vcf_1000_genomes_filtered/${i%.vcf*}_filtered.vcf; \
-done;
