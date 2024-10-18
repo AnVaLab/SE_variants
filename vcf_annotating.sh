@@ -1,9 +1,29 @@
 #!/bin/bash
 
-# downloading dbs
+mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated
+cd /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated
 
+cd /home/avasileva/programs/snpEff
 
 # SnpEff
+screen -S annotation
+ls *.vcf |
+parallel -j 7 "\
+java -Xmx8g -jar /home/avasileva/programs/snpEff/snpEff.jar \
+-c /home/avasileva/programs/snpEff/snpEff.config -v GRCh37.75 {} > \
+{.}.ann.vcf"
+
+
+
+grep -ivP '\t<NON_REF>\t' {} > {}.temp && \
+mv {}.temp {} && \
+echo '{} completed'
+"
+
+java -Xmx8g -jar snpEff.jar GRCh37.75 examples/test.chr22.vcf > test.chr22.ann.vcf
+
+
+# downloading dbs
 
 
 # SnpSift
