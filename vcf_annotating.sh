@@ -14,6 +14,8 @@ java -Xmx8g -jar /home/avasileva/programs/snpEff/snpEff.jar \
 -c /home/avasileva/programs/snpEff/snpEff.config -v hg38 {} > \
 /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated/{.}.ann.vcf"
 
+# разнести доп поля и vcf файл в разные файлы во время аннотации а потом объединить
+
 
 
 grep -ivP '\t<NON_REF>\t' {} > {}.temp && \
