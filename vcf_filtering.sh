@@ -15,19 +15,25 @@ bedtools intersect -wa -wb \
 # screen -r 4833.DOWNLOAD_RAW # to come back to screen
 # screen -X -S 13240.DOWNLOAD_raw quit  #удалить фоновое окно
 
-mkdir ~/project/variants/vcf_1000_genomes_filtered_new
+
+# checking number of fields
 ls *.vcf.gz | \
-parallel -j 20 '\
-bedtools intersect -wa -wb \
--a ~/project/variants/vcf_1000_genomes/{} \
--b /home/avasileva/project/monocytes/combined_annotation/combined_annotation.bed > \
-~/project/variants/vcf_1000_genomes_filtered_new/filtered_{}'
+parallel -j 100 "\
+cat {} | awk -F'\t' '{print NF}' | sort -n | uniq && echo {}"
 
 
+
+mkdir ~/project/variants/vcf_1000_genomes_filtered_new
+
+
+mkdir ~/project/variants/vcf_1000_genomes_filtered_no_no_ref
 # removing lines with <ref only>
 screen -S filtration_ref
-ls *.vcf |
+ls *.vcf.gz |
 parallel -j 100 "\
+awk -F'\t' '{if (\$5!=\"<NON_REF>\") print \$0}' {} > \
+~/project/variants/vcf_1000_genomes_filtered_no_no_ref/{} && echo {}"
+
 grep -ivP '\t<NON_REF>\t' {} > {}.temp && \
 mv {}.temp {} && \
 echo '{} completed'"
