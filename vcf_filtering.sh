@@ -9,7 +9,7 @@ parallel -j 100 '\
 bedtools intersect -wa -wb \
 -a ~/project/variants/vcf_1000_genomes/{} \
 -b /home/avasileva/project/monocytes/combined_annotation/combined_annotation.bed > \
-~/project/variants/vcf_1000_genomes_filtered/filtered_{}'
+~/project/variants/vcf_1000_genomes_filtered_new/filtered_{}'
 # Ctrl+a+d # выйти из screen
 # screen -ls
 # screen -r 4833.DOWNLOAD_RAW # to come back to screen
