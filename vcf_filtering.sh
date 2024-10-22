@@ -3,6 +3,8 @@
 mkdir -p ~/project/variants/vcf_1000_genomes_filtered
 cd ~/project/variants/vcf_1000_genomes_filtered/
 
+mkdir ~/project/variants/vcf_1000_genomes_filtered_new
+
 screen -S filtration 
 ls *.vcf.gz | \
 parallel -j 100 '\
@@ -15,16 +17,10 @@ bedtools intersect -wa -wb \
 # screen -r 4833.DOWNLOAD_RAW # to come back to screen
 # screen -X -S 13240.DOWNLOAD_raw quit  #удалить фоновое окно
 
-
 # checking number of fields
 ls *.vcf.gz | \
 parallel -j 100 "\
 cat {} | awk -F'\t' '{print NF}' | sort -n | uniq && echo {}"
-
-
-
-mkdir ~/project/variants/vcf_1000_genomes_filtered_new
-
 
 mkdir ~/project/variants/vcf_1000_genomes_filtered_no_no_ref
 # removing lines with <ref only>
@@ -34,6 +30,17 @@ parallel -j 100 "\
 awk -F'\t' '{if (\$5!=\"<NON_REF>\") print \$0}' {} > \
 ~/project/variants/vcf_1000_genomes_filtered_no_no_ref/{} && echo {}"
 
+# checking number of fields
+ls *.vcf.gz | \
+parallel -j 100 "\
+cat {} | awk -F'\t' '{print NF}' | sort -n | uniq && echo {}"
+
+cd ~/project/variants/vcf_1000_genomes_filtered_no_no_ref
+mkdir ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields
+# removing records with NF less than 40
+ls *.vcf.gz | \
+parallel -j 100 "\
+cat {} | awk -F'\t' '{if (NF==40) print \$0}' >  ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields/{} && echo {}"
 
 zcat ~/project/variants/vcf_1000_genomes/{#filtered_}.gz | \
 awk '{if (\$0~/^#/) {print} else exit}' | \
