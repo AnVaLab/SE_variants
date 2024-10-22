@@ -30,5 +30,9 @@ bedops -e 100% /home/avasileva/project/genome_ann/encode/ENCFF420VPZ_all_sorted.
 # yes, all elements from file for monocytes exist in file for genome
 
 # leaving only distal and proximal enhancer like sites
-bedops -e 100% /home/avasileva/project/genome_ann/encode/ENCFF420VPZ_all_sorted.bed ENCFF900YFA_monocytes_sorted_classified.bed | grep -E "dELS|pELS" > e.bed
+bedops -e 100% \
+/home/avasileva/project/genome_ann/encode/ENCFF420VPZ_all_sorted.bed \
+ENCFF900YFA_monocytes_sorted_classified.bed | \
+grep -E "dELS|pELS" > \
+e.bed
 # the output file is sorted
