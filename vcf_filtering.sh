@@ -42,47 +42,36 @@ ls *.vcf.gz | \
 parallel -j 100 "\
 cat {} | awk -F'\t' '{if (NF==40) print \$0}' >  ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields/{} && echo {}"
 
-zcat ~/project/variants/vcf_1000_genomes/{#filtered_}.gz | \
+mkdir ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields_fields
+cd  ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields
+ls *.vcf.gz | \
+parallel -j 100 "\
+awk -F'\t' -v OFS='\t' \
+'{print \$1,\$2,\$3,\$5,\$6,\$7,\$8,\$9,\$10,\$11,\$12,\$13,\$14,\$20,\$21,\$22,\$23,\$24,\$25,\$26,\$29,\$35,\$39,\$40}' > \
+~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields_fields/{} && echo {}"
+
+не работает
+
+
+mkdir ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields_header
+cd  ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields
+ls *.vcf.gz | \
+parallel -j 100 --plus "\
+zcat ~/project/variants/vcf_1000_genomes/{#filtered_} | \
 awk '{if (\$0~/^#/) {print} else exit}' | \
-cat - {} > \
-~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp && \
-mv ~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp {} && \
+cat - {} > ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields_header/{} &&
 echo '{} completed'"
 
-
-
-# check if all records have the same number of fields
-awk -F"\t" '{numb[NF]++} END {for (n in numb) print n,numb[n]}'
-
-# replace white spaces by \t
-cd ~/project/variants/vcf_1000_genomes_filtered
-ls *.vcf |  parallel -j 100 --plus "\
-sed 's/[:blank:]+/\t/g' {} > ~/project/variants/vcf_1000_genomes_filtered_formatted/filtered_formatted_{#filtered_} && \
-echo '{} completed'"
-
-console.log(str.replace('s/\s+/\t/g', '#'))
-
-
-# appending headers
-cd ~/project/variants/vcf_1000_genomes_filtered
-screen -S adding_header
-ls *.vcf |  parallel -j 100 --plus "\
-zcat ~/project/variants/vcf_1000_genomes/{#filtered_}.gz | \
-awk '{if (\$0~/^#/) {print} else exit}' | \
-cat - {} > \
-~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp && \
-mv ~/project/variants/vcf_1000_genomes_filtered_formatted/{}.temp {} && \
-echo '{} completed'"
 
 # naming last columns
-
-# removing columns that don't bring info
 
 
 
 sed 's/^#//'
 
-"#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	HG00096	EL_CHR	EL_START	EL_END	EL_NAME	EL_UKNOWN
+"#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	HG00096	eleven twenlve thirteen fourteen fifteen sixteen, (17) seventeen, (18) eighteen, (19) nineteen, and (20) twenty.
+After this set, the third set of 21 to 30 becomes easier to learn because it has numbers starting from twenty followed by a suffix of one, two, three, and so on. For example, (21) twenty-one, (22) twenty-two, (23) twenty-three, (24) twenty-four, (25) twenty-five, (26) twenty-six, (27) twenty-seven, (28) twenty-eight, (29) twenty-nine, (30) thirty.
+The next set follows the same kind of series and starts from (31) thirty-one, (32) thirty-two, (33) thirty-three, (34) thirty-four, (35) thirty-five, (36) thirty-six, (37) thirty-seven, (38) thirty-eight, (39) thirty-nine, (40) forty
 
 
 el_chr
@@ -116,11 +105,8 @@ se_se
 se_gene_type
 se_element_type
 
-chr1	183488063	.	A	G,<NON_REF>	1083.77	.	DP=32;ExcessHet=3.0103;MLEAC=2,0;MLEAF=1.00,0.00;MQ0=0;RAW_MQ=115200.00	
-GT:AD:DP:GQ:PL:SB	1/1:0,32,0:32:96:1112,96,0,1112,96,1112:0,0,19,13	
-chr1	183487860	183488185	EH38E2852611	0	.	183487860	183488185	255,205,0	dELS	
-chr1	183459942	183581506	hg38_CD14PM_chr1_183459942	121564	CD14-positive_monocyte	-	-
-SEA	33	3	3	SEA	SMG7	proximal	h3k27ac	SE	coding	SE_E
+awk -F"\t" '{print $1,$2,$3,$5,$6,$7,$8,$9, $10,$11, $12, $13, $14, $20, $21, $22, $23, $24, $25,$26, $29, $35,$39, $40}'
+
 
 
 chr1	182149469	.	G	A,<NON_REF>	1118.77	.	DP=35;ExcessHet=3.0103;MLEAC=2,0;MLEAF=1.00,0.00;MQ0=0;RAW_MQ=126000.00	GT:AD:DP:GQ:PL:SB
