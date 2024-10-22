@@ -47,7 +47,7 @@ cd  ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields
 ls *.vcf.gz | \
 parallel -j 100 "\
 awk -F'\t' -v OFS='\t' \
-'{print \$1,\$2,\$3,\$4,\$5,\$6,\$7,\$8,\$9,\$10,\$11,\$12,\$13,\$14,\$20,\$21,\$22,\$23,\$24,\$25,\$26,\$29,\$35,\$39,\$40}' {} > \
+'{print \$1,\$2,\$3,\$4,\$5,\$6,\$7,\$8,\$9,\$10}' {} > \
 ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields_fields/{} && echo {}"
 
 
@@ -60,10 +60,8 @@ awk '{if (\$0~/^#/) {print} else exit}' | \
 cat - {} > ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields_header/{} &&
 echo '{} completed'"
 
-mkdir ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields_header_modified
-# naming last columns
 ls *.vcf.gz | \
 parallel -j 100 "\
-cat {} | \
-sed 's/^#CHROM.*/#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tHG00096\tone\ttwo\tthree\tfour\tfive\tsix\tseven\teight\tnine\tten\televen\ttwelve\tthirteen\tfourteen\tfivteen/' > \
-~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields_header_modified/{}"
+mv {} {.}"
+
+
