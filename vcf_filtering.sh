@@ -34,15 +34,6 @@ parallel -j 100 "\
 awk -F'\t' '{if (\$5!=\"<NON_REF>\") print \$0}' {} > \
 ~/project/variants/vcf_1000_genomes_filtered_no_no_ref/{} && echo {}"
 
-grep -ivP '\t<NON_REF>\t' {} > {}.temp && \
-mv {}.temp {} && \
-echo '{} completed'"
-
-###
-ls *.vcf |  parallel -j 100 "\
-grep -v '^#' {} > {}.temp && \
-mv {}.temp {} && \
-echo '{} completed' "
 
 zcat ~/project/variants/vcf_1000_genomes/{#filtered_}.gz | \
 awk '{if (\$0~/^#/) {print} else exit}' | \
