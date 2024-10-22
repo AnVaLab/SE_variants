@@ -13,6 +13,7 @@ bedtools intersect \
 -b /home/avasileva/project/monocytes/se/se.bed > \
 te_se_e.bed 
 # this file contains information about SE enhancer elements and typical enhancers
+# unexpected behaviour: adds -1 to columns 11,12 for records with no intersection!
 
 # 3. Appending last column to te and se files
 # based on condition add a value to a new column (TY/SE_E)
