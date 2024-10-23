@@ -1,9 +1,7 @@
 #!/bin/bash
 
-mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated
-
+mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff
 cd /home/avasileva/project/variants/vcf_1000_genomes_filtered_formatted
-
 
 
 # SnpEff
@@ -49,8 +47,35 @@ wget https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/vcf/geno
 
 
 # SnpSift
+mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar
+
+screen -S annotation
+ls *.vcf |
+parallel -j 50 "\
+java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate \
+ /home/avasileva/project/variants/db/clinvar/clinvar.vcf {} > \
+/home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar/clinvar_{.}.ann.vcf
+"
+
+mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp
+screen -S annotation
+ls *.vcf |
+parallel -j 100 "\
+java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
+ /home/avasileva/project/variants/db/dbsnp/00-All.vcf {} > \
+/home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp/dbsnp_{.}.ann.vcf
+"
+
+
+java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate \
+dbSnp132.vcf \
+variants.vcf > \
+variants_annotated.vcf
+
+
+
 # последние версии gnomad, ClinVar, dnsnp.
-
 java -jar SnpSift.jar annotate dbSnp132.vcf variants.vcf > variants_annotated.vcf
-
 java -jar SnpSift.jar annotate db/dbSnp/dbSnp137.20120616.vcf test.chr22.vcf
+
+
