@@ -60,8 +60,8 @@ java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate \
 mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp
 screen -S annotation
 ls *.vcf |
-parallel -j 40 "\
-java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
+parallel -j 15 "\
+java -Xmx8g -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
  /home/avasileva/project/variants/db/dbsnp/00-All.vcf {} > \
 /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp/dbsnp_{.}.ann.vcf
 "
