@@ -8,33 +8,36 @@ bedops --chop 10 /home/avasileva/project/monocytes/se/se_e_filtered.bed > /home/
 bedops --chop 10  /home/avasileva/project/monocytes/enhancers/te.bed >  /home/avasileva/project/monocytes/enhancers/te_chopped.bed
 
 # counting number of variants per 10 np
-mkdir -p /home/avasileva/project/variants/variant_distribution/bg
+mkdir -p /home/avasileva/project/variants/variant_distribution/
 cd /home/avasileva/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields_header
 ls *.vcf |
-parallel -j 100 "\
+parallel -j 100 --plus "\
+mkdir -p /home/avasileva/project/variants/variant_distribution/{.}
 bedtools intersect \
 -a /home/avasileva/project/genome_ann/bg/bg_sampled_chopped.bed \
 -b {} \
--c > /home/avasileva/project/variants/variant_distribution/bg{}
+-c > /home/avasileva/project/variants/variant_distribution/{.}/bg_{.}.bed
 "
 
-mkdir mkdir -p /home/avasileva/project/variants/variant_distribution/se_e
 ls *.vcf |
-parallel -j 100 "\
+parallel -j 100 --plus "\
+mkdir -p /home/avasileva/project/variants/variant_distribution/{.}
 bedtools intersect \
 -a  /home/avasileva/project/monocytes/se/se_e_filtered_chopped.bed \
 -b {} \
--c > /home/avasileva/project/variants/variant_distribution/se_e{}
+-c > /home/avasileva/project/variants/variant_distribution/{.}/se_e_{.}.bed
 "
 
-mkdir mkdir -p /home/avasileva/project/variants/variant_distribution/te
 ls *.vcf |
-parallel -j 100 "\
+parallel -j 100 --plus "\
+mkdir -p /home/avasileva/project/variants/variant_distribution/{.}
 bedtools intersect \
 -a   /home/avasileva/project/monocytes/enhancers/te_chopped.bed \
 -b {} \
--c > /home/avasileva/project/variants/variant_distribution/se_e{}
+-c > /home/avasileva/project/variants/variant_distribution/{.}/te_e_{.}.bed
 "
+
+# transferring files from server to a local pc
 
 
 
