@@ -38,7 +38,8 @@ bedtools intersect \
 "
 
 # transferring files from server to a local pc
-
+scp -i '/home/anastasia/Downloads/avasileva.txt' \
+-r avasileva@51.250.11.65:~/project/variants/variant_distribution/ '/home/anastasia/Documents/SE'
 
 
 найти корреляцию спирмана по пациетам
