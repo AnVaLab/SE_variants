@@ -45,10 +45,12 @@ wget https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/vcf/geno
 wget https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/vcf/genomes/gnomad.genomes.v4.1.sites.chrX.vcf.bgz;
 wget https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/vcf/genomes/gnomad.genomes.v4.1.sites.chrY.vcf.bgz
 
-for i in {1..22};
-do
-mv /home/avasileva/project/variants/db/gnomad/gnomad.genomes.v4.1.sites.chr${i}.vcf.gbz /home/avasileva/project/variants/db/gnomad/gnomad.genomes.v4.1.sites.chr${i}.vcf.gz
-gunzip /home/avasileva/project/variants/db/gnomad/gnomad.genomes.v4.1.sites.chr${i}.vcf.gz; done
+
+ls *.bgz |
+parallel -j 24 --plus "\
+mv {} {.}.gz
+gunzip {.}.gz"
+
 
 # SnpSift
 mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar
@@ -77,18 +79,18 @@ parallel -j 2 "\
 for i in {1..22};
 do
 java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
-/home/avasileva/project/variants/db/gnomad/gnomad.genomes.v4.1.sites.chr${i}.vcf {} > \
+/home/avasileva/project/variants/db/gnomad/gnomad.genomes.v4.1.sites.chr${i}.vcf.gz {} > \
 /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/temp
 mv /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/temp /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/{}
 done
 
 java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
-/home/avasileva/project/variants/db/gnomad/gnomad.genomes.v4.1.sites.chrX.vcf {} > \
+/home/avasileva/project/variants/db/gnomad/gnomad.genomes.v4.1.sites.chrX.vcf.gz {} > \
 /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/temp
 mv /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/temp /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/{}
 
 java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
-/home/avasileva/project/variants/db/gnomad/gnomad.genomes.v4.1.sites.chrX.vcf {} > \
+/home/avasileva/project/variants/db/gnomad/gnomad.genomes.v4.1.sites.chrX.vcf.gz {} > \
 /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/temp
 mv /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/temp /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/{}
 "
