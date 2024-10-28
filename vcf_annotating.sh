@@ -46,10 +46,9 @@ wget https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/vcf/geno
 wget https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/vcf/genomes/gnomad.genomes.v4.1.sites.chrY.vcf.bgz
 
 
-ls *.bgz |
-parallel -j 24 --plus "\
-mv {} {.}.gz
-gunzip {.}.gz"
+ls *.gz |
+parallel -j 2 --plus "\
+gunzip -dkv {}"
 
 
 # SnpSift
