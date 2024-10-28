@@ -53,7 +53,6 @@ gunzip -dkv {}"
 
 # SnpSift
 mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar
-
 screen -S annotation
 ls *.vcf |
 parallel -j 50 "\
@@ -72,6 +71,12 @@ java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
 "
 
 mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad
+
+
+java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
+/home/avasileva/project/variants/db/gnomad/gnomad.genomes.v4.1.sites.chr1.vcf.gz \
+dbsnp_clinvar_filtered_HG00096.haplotypeCalls.er.raw.ann.ann.vcf > \
+temp
 
 ls *.vcf |
 parallel -j 2 "\
@@ -98,7 +103,6 @@ java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate \
 dbSnp132.vcf \
 variants.vcf > \
 variants_annotated.vcf
-
 
 
 # последние версии gnomad, ClinVar, dnsnp.
