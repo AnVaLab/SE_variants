@@ -47,8 +47,8 @@ wget https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/vcf/geno
 
 
 ls *.gz |
-parallel -j 2 --plus "\
-gunzip -dkv {}"
+parallel -j 10 "\
+bcftools index -t --threads 9 {}"
 
 
 # SnpSift
@@ -69,6 +69,10 @@ java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
  /home/avasileva/project/variants/db/dbsnp/00-All.vcf {} > \
 /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp/dbsnp_{.}.ann.vcf
 "
+
+-rw-rw-r-- 1 avasileva avasileva         0 Oct 27 13:53 dbsnp_clinvar_filtered_HG00096.haplotypeCalls.er.raw.ann.ann.vcf
+-rw-rw-r-- 1 avasileva avasileva         0 Oct 27 13:53 dbsnp_clinvar_filtered_HG00101.haplotypeCalls.er.raw.ann.ann.vcf
+
 
 mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad
 
@@ -98,6 +102,7 @@ java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
 /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/temp
 mv /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/temp /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpsift_clinvar_dbsnp_gnomad/{}
 "
+
 
 java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate \
 dbSnp132.vcf \
