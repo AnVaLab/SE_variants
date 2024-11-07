@@ -38,4 +38,13 @@ e.bed
 # the output file is sorted
 
 # Removing unneeded files
-rm -f ENCFF900YFA_monocytes.bed ENCFF900YFA_monocytes_sorted_classified.bed
+rm -f ENCFF900YFA_monocytes.bed \
+ENCFF900YFA_monocytes_sorted_classified.bed
+
+# Readme file
+touch readme.txt
+printf "This Readme.txt contains description of files in /home/avasileva/project/monocytes/enhancers folder \n \
+ENCFF900YFA_monocytes_sorted.bed - contains all regulatory elements coordinates in monocytes sorted by coordinates(sorted ENCODE file);\n \
+e.bed - contains only enhancers in monocytes with high H3K27ac signal. (Fitered ENCFF900YFA_monocytes_sorted.bed file, \n \
+in which regulatory elements were annotated using ENCODE annotation for human genome, leaving only dELS and pELS elements. And only \n \
+records marked as classified were left.\n" > readme.txt
