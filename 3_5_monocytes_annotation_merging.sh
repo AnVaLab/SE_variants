@@ -32,5 +32,11 @@ cat /home/avasileva/project/monocytes/enhancers/te.bed >> combined_annotation.be
 ## 4. sorting file
 bedtools sort -i combined_annotation.bed > combined_annotation_sorted.bed
 
+## 5. removing unneeded files
+rm -f combined_annotation.bed
+
+## 6. readme
+
+
 # visualizing
 scp -i '/home/anastasia/Downloads/avasileva.txt' avasileva@51.250.11.65:/home/avasileva/project/monocytes/combined_annotation/combined_annotation_sorted.bed /home/anastasia/Documents/SE;
