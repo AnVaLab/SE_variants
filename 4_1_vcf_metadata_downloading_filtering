@@ -1,16 +1,18 @@
 #!/bin/bash
 
-## Selecting samples to download from 1000 Genomes 30x on GRCh38 project based on metadata
+### Selecting sample ids to download from 1000 Genomes 30x on GRCh38 project based on metadata
+
+## 1. creating working directory
+mkdir -p /home/avasileva/project/variants
+cd /home/avasileva/project/variants
+
+## 2. downloading 1000 Genomes 30x on GRCh38 project samples metadata
 
 # to get the download link for 1000 Genomes 30x on GRCh38 project metadata file
 # go to 1000 Genomes 30x on GRCh38 website (https://www.internationalgenome.org/data-portal/data-collection/30x-grch38) 
 # F12 key -> Network
 # Download file locally, find it in Network, right click it and choose copy->copy as cURL
 
-
-cd ~/project/variants
-
-# download samples metadata
 curl 'https://www.internationalgenome.org/api/beta/sample/_search/igsr-1000%20genomes%2030x%20on%20grch38.tsv.tsv' \
   -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
   -H 'Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,ar;q=0.6' \
@@ -49,9 +51,17 @@ awk '{count[$5]++} END {for (value in count) print value, count[value]}' samples
 # Iberian,Spanish 1
 # British 45
 
-# selecting 20 samples from each subpopulation, to make the sample balanced
+## 3. selecting 20 samples from each subpopulation, to make the sample balanced
 # Finish subpopulation was excluded due to unique genetic variations, not representative of european population
-# CEPH subpopulation was excluded due to lack of evidence for it to be of european ancestry (?)
+# CEPH subpopulation was excluded due to lack of evidence for it to be of european ancestry 
 awk '$2=="male" && $4=="TSI" {print $0}' samples_meta_1000Genomes30xGRCh38.csv | head -33  > samples_meta_male_eur_100_1000Genomes30xGRCh38.csv 
 awk '$2=="male" && $4=="IBS" {print $0}' samples_meta_1000Genomes30xGRCh38.csv | head -33 >> samples_meta_male_eur_100_1000Genomes30xGRCh38.csv 
 awk '$2=="male" && $4=="GBR" {print $0}' samples_meta_1000Genomes30xGRCh38.csv | head -34 >> samples_meta_male_eur_100_1000Genomes30xGRCh38.csv 
+
+## 4. readme
+touch readme.txt
+printf "This Readme.txt contains description of files in /home/avasileva/project/variants folder \n \
+samples_meta_1000Genomes30xGRCh38.csv - 1000 Genomes 30x on GRCh38 project metadata; \n \
+samples_meta_male_eur_100_1000Genomes30xGRCh38.csv - selected samples for variant analysis \n \
+100 european male samples (TSI, IBS, GBR) \n" > readme.txt
+
