@@ -1,6 +1,8 @@
 #!/bin/bash
 
-## splitting SE to separate files
+## Adding spacer coordinates to SE elements annotation
+## Resulting file se_spacers_annotated_sorted.bed
+
 # creating a working dirrectory
 mkdir -p /home/avasileva/temp
 cd /home/avasileva/temp
@@ -18,14 +20,13 @@ awk -v RS="\n\n" '{
    print $0 > filename
 }' 
 
-## creating file with complement (SE spacers)
-
+## creating a file with SE spacers coordinates
 # creating a working directory
 mkdir -p /home/avasileva/project/monocytes/se/spacers
 cd /home/avasileva/project/monocytes/se/spacers
 > se_spacers.bed
 
-# finding complement
+# finding SE spacer coordinates
 for filename in /home/avasileva/temp/*; \
 do \
 se_info=$(cat "$filename" | head -1 | sed 's/.*\t\(chr.*\)SE_E/\1SE_S/'); \
@@ -35,14 +36,14 @@ bedops --complement  "$filename" | \
 awk  -F"\t" -v te="$te_info" -v se="$se_info" '{print $0 "\t" te se}' >> \
 se_spacers.bed; \
 done 
-# variable here is meta info about SE, to which spacers belong
+# variable here is a SE meta info
 
-## 4. annotating spacers (SE spacers overlap with genes and regulatory elements, this information is important to consider in variation alalysis)
+## Annotating spacers (SE spacers overlap with genes and regulatory elements, this information is important to consider in variation alalysis)
 
 # sort file
 bedtools sort -i se_spacers.bed > se_spacers_sorted.bed
 
-# intersecting spacers with regulatory regions
+# Finding coordinates of functional elements in spacers
 bedtools intersect \
 -a se_spacers_sorted.bed \
 -b /home/avasileva/project/genome_ann/encode/ENCFF420VPZ_all.bed /home/avasileva/project/genome_ann/hg38/genecode.v21.annotation.genes_sorted.bed |
@@ -52,14 +53,14 @@ se_spacers_gene_pre.bed
 # sort file
 bedtools sort -i se_spacers_gene_pre.bed > se_spacers_gene_pre_sorted.bed
 
-# find only generegions
+# Finding coordinates of spacers that do not contain functional elements
 bedtools subtract -a se_spacers_sorted.bed -b se_spacers_gene_pre_sorted.bed > se_spacers_nothing.bed
 
-# combining
+# Combining files with spacers info
 cat se_spacers_gene_pre_sorted.bed > se_spacers_annotated.bed
 cat se_spacers_nothing.bed >> se_spacers_annotated.bed
 
-# sort file
+# Soring file
 bedtools sort -i se_spacers_annotated.bed > se_spacers_annotated_sorted.bed
 
 
