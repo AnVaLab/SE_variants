@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# entering the working folder
+# Merging functional genome annotations
+
 # creating a working folder
 mkdir -p /home/avasileva/project/genome_ann/merged
 cd /home/avasileva/project/genome_ann/merged
@@ -12,3 +13,7 @@ bedops --merge \
 /home/avasileva/project/genome_ann/sea/SEA00101_sorted.bed > \
 hg38_encode_sea_ann_merged.bed
 
+#  readme
+touch readme.txt
+printf "This Readme.txt contains description of files in  /home/avasileva/project/genome_ann/merged folder \n \
+hg38_encode_sea_ann_merged.bed - merged functional genome annotations for hg38 (hg38 complete gene annotation, ENCODE v.4 for hg38, SEA) \n" > readme.txt
