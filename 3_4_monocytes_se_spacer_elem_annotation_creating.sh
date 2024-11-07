@@ -72,3 +72,11 @@ scp -i '/home/anastasia/Downloads/avasileva.txt' avasileva@51.250.11.65:/home/av
 # Removing unneeded files
 rm -f se_spacers.bed se_spacers_gene_pre.bed se_spacers_gene_pre_sorted.bed se_spacers_nothing.bed se_spacers_annotated.bed
 rm -rf  /home/avasileva/temp/*
+
+# Creating a Readme.txt file
+touch readme.txt
+printf "This Readme.txt contains description of files in ~/project/monocytes/se/spacers folder \n \
+se_spacers_sorted.bed - file containing SE spacer coordinates; \n \
+se_spacers_annotated_sorted.bed - file containing annotated SE spacer elements, \n \
+Where one spacer can have several records, each corresponding to a functional or non functional region of a spacer. \n \
+Functional regions are genes, enhancers, promoters etc. in the entire human genome.\n" > readme.txt
