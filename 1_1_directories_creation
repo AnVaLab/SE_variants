@@ -4,17 +4,9 @@
   
 # temporary dirrectory
 mkdir -p /home/avasileva/temp
-cd /home/avasileva/temp
-rm -rf ./*
 
 # programs direcrory 
-mkdir -p /home/avasileva/temp
-cd /home/avasileva/temp
-rm -rf ./*
+mkdir -p /home/avasileva/programs
 
 # project directory
-mkdir -p /home/avasileva/temp
-cd /home/avasileva/temp
-rm -rf ./*
-
-
+mkdir -p /home/avasileva/project
