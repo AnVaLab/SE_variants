@@ -1,4 +1,4 @@
-#### ADD WORKING DIRECTORY PROPERLY
+# Plotting SE and enhancer length distribution
 
 layout(mat = matrix(c(1,2), ncol=1))
 
