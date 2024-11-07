@@ -36,3 +36,6 @@ ENCFF900YFA_monocytes_sorted_classified.bed | \
 grep -E "dELS|pELS" > \
 e.bed
 # the output file is sorted
+
+# Removing unneeded files
+rm -f ENCFF900YFA_monocytes.bed ENCFF900YFA_monocytes_sorted_classified.bed
