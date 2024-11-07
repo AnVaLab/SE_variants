@@ -11,3 +11,4 @@ bedops --merge \
 /home/avasileva/project/genome_ann/hg38/genecode.v21.annotation.genes_sorted.bed \
 /home/avasileva/project/genome_ann/sea/SEA00101_sorted.bed > \
 hg38_encode_sea_ann_merged.bed
+
