@@ -2,11 +2,6 @@
 
 # Enhancer elements in SE were defined by intersecting SEA and ENCODE. 
 
-## 5. creating working folder
-mkdir -p /home/avasileva/project/monocytes/se
-cd  /home/avasileva/project/monocytes/se
-
-
 ## 1. creating a working folder
 mkdir -p /home/avasileva/project/monocytes/se/enhancers
 mkdir -p /home/avasileva/project/monocytes/combined_annotation
@@ -33,7 +28,9 @@ grep -v "SEA" te_se_e_marked.bed > /home/avasileva/project/monocytes/enhancers/t
 # Since enhancer coordinated differ in SEA and ENCODE inconcistencies were witnessed: in some SE start/end coordinates did not overlap enhancers,
 # some SE concist only out of 1 ENCODE enhancer, which contradicts SE definition. We decided to exclude those SE.
 
-## 6. counting number of enhancers in each SE
+## 5. counting number of enhancers in each SE
+cd /home/avasileva/project/monocytes/se/enhancers
+
 # finding field number containing SE ids (they start with hg38)
 string="hg38"
 se_id_field="$(awk -v b="$string" '{for (i=1; i<=NF; i++) { if ($i ~ b) { print i; exit } }}' se_e.bed)"
@@ -67,8 +64,8 @@ END {
 # result veridication
 awk -F"\t" -v se_id_field="$se_id_field" '{se[$se_id_field]++} END {for (s in se) print s, se[s]}' se_e_filtered.bed | sort -nk2 | head -10
 
-# Removing unneeded files
+# 7. Removing unneeded files
 rm -f /home/avasileva/project/monocytes/se/se_e.bed \
-/home/avasileva/project/monocytes/se/se_elem_numb.txt \
+/home/avasileva/project/monocytes/se/enhancers/se_elem_numb.txt \
 /home/avasileva/project/monocytes/combined_annotation/te_se_e.bed \
 /home/avasileva/project/monocytes/combined_annotation/te_se_e_marked.bed
