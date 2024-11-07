@@ -25,7 +25,7 @@ shuf -n "${te_sample_size}"  /home/avasileva/project/genome_ann/bg/bg_all_fields
 
 ## 3. combining annotations
 cat /home/avasileva/project/genome_ann/bg/bg_sampled.bed > combined_annotation.bed
-cat /home/avasileva/project/monocytes/se/se_e_filtered.bed >> combined_annotation.bed
+cat /home/avasileva/project/monocytes/se/enhancers/se_e_filtered.bed >> combined_annotation.bed
 cat /home/avasileva/project/monocytes/se/spacers/se_spacers_annotated_sorted.bed >> combined_annotation.bed
 cat /home/avasileva/project/monocytes/enhancers/te.bed >> combined_annotation.bed
 
@@ -36,7 +36,10 @@ bedtools sort -i combined_annotation.bed > combined_annotation_sorted.bed
 rm -f combined_annotation.bed
 
 ## 6. readme
-
+touch readme.txt
+printf "This Readme.txt contains description of files in /home/avasileva/project/monocytes/combined_annotation folder \n \
+combined_annotation_sorted.bed - is a combined element annotation (final), containing records for typical enhancers, SE elements (enhancers and spacers) \n \
+and negative control regions. " > readme.txt
 
 # visualizing
 scp -i '/home/anastasia/Downloads/avasileva.txt' avasileva@51.250.11.65:/home/avasileva/project/monocytes/combined_annotation/combined_annotation_sorted.bed /home/anastasia/Documents/SE;
