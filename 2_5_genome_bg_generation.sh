@@ -11,3 +11,6 @@ bedops --complement /home/avasileva/project/genome_ann/merged/hg38_encode_sea_an
 
 ## 3. chopping compliment to pieces with length equal to average typical enhancer length
 bedops --chop 268 --stagger 468 -x bg_all.bed > bg_all_chopped.bed
+
+# Removing unneeded files
+rm -f bg_all.bed
