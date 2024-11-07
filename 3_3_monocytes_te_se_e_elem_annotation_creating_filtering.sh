@@ -76,3 +76,7 @@ printf "This Readme.txt contains description of files in /home/avasileva/project
 se_e_filtered.bed - file containing SE enhancer coordinates; \n \
 Enhancer coordinates in SE were found by intersection of SE in monocytes with ENCODE enhancer coordinates in monocytes.\n \
 Only records for SE with more than 1 enhancer were left.\n" > readme.txt
+
+printf "te.bed - file contains only records for typical enhancers (SE enhancer elements are excluded from the file.\n \
+Achieved by intersection of e.bed and se.bed file\n" \
+>> /home/avasileva/project/monocytes/enhancers/readme.txt
