@@ -32,7 +32,7 @@ rm -f SEA00101.bed SEA00101_no_record_numb.bed SE_only_SEA00101.bed TE_only_SEA0
 
 ## 7 readme
 touch readme.txt
-printf "This Readme.txt contains description of files in  /home/avasileva/project/genome_ann/hg38 folder \n \
+printf "This Readme.txt contains description of files in  /home/avasileva/project/genome_ann/sea folder \n \
 SEA00101_sorted.bed - original SEA db annotation for SE and enhancers in a range cell lines and tissues. 1st column was removed to fit standart .bed file format \n \
 SE_only_SEA00101_sorted.bed - SEA db annotation for SE only in a range cell lines and tissues; \n \
 TE_only_SEA00101_sorted.bed  - SEA db annotation for TE only in a range cell lines and tissues \n" > readme.txt
