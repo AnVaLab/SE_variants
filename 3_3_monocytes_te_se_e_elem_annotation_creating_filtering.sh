@@ -69,3 +69,10 @@ rm -f /home/avasileva/project/monocytes/se/se_e.bed \
 /home/avasileva/project/monocytes/se/enhancers/se_elem_numb.txt \
 /home/avasileva/project/monocytes/combined_annotation/te_se_e.bed \
 /home/avasileva/project/monocytes/combined_annotation/te_se_e_marked.bed
+
+# 8. Readme file
+touch readme.txt
+printf "This Readme.txt contains description of files in /home/avasileva/project/monocytes/se/enhancers folder \n \
+se_e_filtered.bed - file containing SE enhancer coordinates; \n \
+Enhancer coordinates in SE were found by intersection of SE in monocytes with ENCODE enhancer coordinates in monocytes.\n \
+Only records for SE with more than 1 enhancer were left.\n" > readme.txt
