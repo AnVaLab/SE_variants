@@ -34,12 +34,18 @@ bedtools sort -i combined_annotation.bed > combined_annotation_sorted.bed
 
 ## 5. removing unneeded files
 rm -f combined_annotation.bed
+rm -f /home/avasileva/project/genome_ann/bg/bg_all_chopped.bed \
+/home/avasileva/project/genome_ann/bg/bg_all_fields.bed 
 
 ## 6. readme
 touch readme.txt
 printf "This Readme.txt contains description of files in /home/avasileva/project/monocytes/combined_annotation folder \n \
 combined_annotation_sorted.bed - is a combined element annotation (final), containing records for typical enhancers, SE elements (enhancers and spacers) \n \
 and negative control regions. " > readme.txt
+
+printf "This Readme.txt contains description of files in /home/avasileva/project/monocytes/combined_annotation folder \n \
+bg_sampled.bed - file with negative control coordinates (regions of genomes that do not have known functional elements, \n \
+choppen into pieces of 268 (median typical enhancer length) and sampled. The number of negative conntrol records equals to the number of typical enhancers\n " >  /home/avasileva/project/genome_ann/bg/readme.txt
 
 # visualizing
 scp -i '/home/anastasia/Downloads/avasileva.txt' avasileva@51.250.11.65:/home/avasileva/project/monocytes/combined_annotation/combined_annotation_sorted.bed /home/anastasia/Documents/SE;
