@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SEA db bed file contains information on SE and E in a number of cell lines, found based on H3K27ac signal (???????????????????????)
+# SEA db bed file contains information on SE and E in a number of cell lines, found based on H3K27ac signal
 
 ## 1. creating a working folder
 mkdir -p /home/avasileva/project/genome_ann/sea
