@@ -30,3 +30,11 @@ bedtools sort -i ENCFF420VPZ_all.bed > ENCFF420VPZ_all_sorted.bed
 
 # file beginning
 cat ENCFF420VPZ_all_sorted.bed | head
+
+## 4 remove unneeded files
+rm -f ENCFF420VPZ_all.bed 
+
+## 7 readme
+touch readme.txt
+printf "This Readme.txt contains description of files in  /home/avasileva/project/genome_ann/encode folder \n \
+ENCFF420VPZ_all_sorted.bed - original ENCODE db v.4 annotation for hg38 (sorted) (source https://www.encodeproject.org/annotations/ENCSR800VNX/)\n" > readme.txt
