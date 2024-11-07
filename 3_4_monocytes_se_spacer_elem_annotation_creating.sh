@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ### Adding spacer coordinates to SE elements annotation
-### Resulting file se_spacers_annotated_sorted.bed
 
 ## 1. Finding SE spacer coordinates
 # Entring folder with temporaty files
