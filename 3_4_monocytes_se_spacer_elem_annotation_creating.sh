@@ -3,11 +3,6 @@
 ## Adding spacer coordinates to SE elements annotation
 ## Resulting file se_spacers_annotated_sorted.bed
 
-# creating a working dirrectory
-mkdir -p /home/avasileva/temp
-cd /home/avasileva/temp
-rm -rf ./*
-
 # getting a field number containing SE id
 string="hg38"
 se_id_field="$(awk -v b="$string" '{for (i=1; i<=NF; i++) { if ($i ~ b) { print i; exit } }}' /home/avasileva/project/monocytes/se/se_e_filtered.bed)"
@@ -62,6 +57,9 @@ cat se_spacers_nothing.bed >> se_spacers_annotated.bed
 
 # Soring file
 bedtools sort -i se_spacers_annotated.bed > se_spacers_annotated_sorted.bed
+
+# Removing unneeded files
+rm -f se_spacers_gene_pre_sorted.bed se_spacers_nothing.bed se_spacers_annotated.bed
 
 
 # checking the result in igv (on local pc)
