@@ -1,8 +1,9 @@
 #!/bin/bash
 
-## Adding spacer coordinates to SE elements annotation
-## Resulting file se_spacers_annotated_sorted.bed
+### Adding spacer coordinates to SE elements annotation
+### Resulting file se_spacers_annotated_sorted.bed
 
+## 1. Finding SE spacer coordinates
 # Entring folder with temporaty files
 cd /home/avasileva/temp
 rm -rf ./*
@@ -37,10 +38,11 @@ se_spacers.bed; \
 done 
 # variable here is a SE meta info
 
-## Annotating spacers (SE spacers overlap with genes and regulatory elements, this information is important to consider in variation alalysis)
-
 # sort file
 bedtools sort -i se_spacers.bed > se_spacers_sorted.bed
+
+
+## 2. Annotating spacers (SE spacers overlap with genes and regulatory elements, this information is important to consider in variation alalysis)
 
 # Finding coordinates of functional elements in spacers
 bedtools intersect \
