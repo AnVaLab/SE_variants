@@ -32,5 +32,9 @@ bedtools sort -i genecode.v21.annotation.genes.bed > genecode.v21.annotation.gen
 ## 6 removing unneeded files
 rm -f gencode.v21.annotation.bed genecode.v21.annotation.genes.bed
 
-
+## 7 readme
+touch readme.txt
+printf "This Readme.txt contains description of files in  /home/avasileva/project/genome_ann/hg38 folder \n \
+gencode.v21.annotation.gtf - hg38 Comprehensive gene annotation (https://www.gencodegenes.org/human/release_21.html)\n \
+genecode.v21.annotation.genes_sorted.bed - file with gene records only \n" > readme.txt
 
