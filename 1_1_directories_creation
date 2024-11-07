@@ -1,11 +1,20 @@
 #!/bin/bash
 
+## Creating main directories for the project
   
-# creating a temporary dirrectory
+# temporary dirrectory
 mkdir -p /home/avasileva/temp
 cd /home/avasileva/temp
 rm -rf ./*
 
-# 
+# programs direcrory 
+mkdir -p /home/avasileva/temp
+cd /home/avasileva/temp
+rm -rf ./*
+
+# project directory
+mkdir -p /home/avasileva/temp
+cd /home/avasileva/temp
+rm -rf ./*
 
 
