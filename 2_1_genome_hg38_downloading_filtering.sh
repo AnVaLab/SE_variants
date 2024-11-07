@@ -28,3 +28,9 @@ awk '{if ($8=="gene") {print $0}}' gencode.v21.annotation.bed > genecode.v21.ann
 
 ## 5 sorting 
 bedtools sort -i genecode.v21.annotation.genes.bed > genecode.v21.annotation.genes_sorted.bed
+
+## 6 removing unneeded files
+rm -f gencode.v21.annotation.bed genecode.v21.annotation.genes.bed
+
+
+
