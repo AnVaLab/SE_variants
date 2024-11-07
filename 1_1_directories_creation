@@ -1,0 +1,11 @@
+#!/bin/bash
+
+  
+# creating a temporary dirrectory
+mkdir -p /home/avasileva/temp
+cd /home/avasileva/temp
+rm -rf ./*
+
+# 
+
+
