@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Downloading .vcf files of previously selected samples (100 european males)
+
 mkdir /home/avasileva/project/variants/vcf_1000_genomes && cd $_
 
 # Create a file with vcf file download links for selected ids
