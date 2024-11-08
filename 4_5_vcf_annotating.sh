@@ -71,3 +71,8 @@ mv /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff_s
 ## 3. Removing unneeded folders
 rm -rf /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff \
 /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff_snpsift_clinvar
+
+## 4. readme
+printf "\
+vcf_1000_genomes_filtered_annotated_snpeff_snpsift_clinvar_dbsnp folder contains .vcf files annotated with SnpEff and SnpSift (clinvar, dbsnp); \n" >> \
+~/project/variants/readme.txt
