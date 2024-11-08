@@ -39,6 +39,10 @@ java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
  /home/avasileva/project/variants/db/dbsnp/00-All.vcf {} > \
 /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff_snpsift_clinvar_dbsnp/dbsnp_{}"
 
+
+#================ Warning! ================= 
+#================ gnomad annotation was not performed=======================
+#================ the code below needs to be corrected to lanch SnpSift gnomad annotation ========================
 # 2.3 gnomad
 cd /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff_snpsift_clinvar_dbsnp/
 mkdir -p /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff_snpsift_clinvar_dbsnp_gnomad
@@ -62,6 +66,7 @@ java -jar /home/avasileva/programs/snpEff/SnpSift.jar annotate -v \
 /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff_snpsift_clinvar_dbsnp_gnomad/temp_{} && \
 mv /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff_snpsift_clinvar_dbsnp_gnomad/temp_{} /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff_snpsift_clinvar_dbsnp_gnomad/{}
 "
+# =====================================
 
 ## 3. Removing unneeded folders
 rm -rf /home/avasileva/project/variants/vcf_1000_genomes_filtered_annotated_snpeff \
