@@ -68,7 +68,7 @@ cat - {} > ~/project/variants/vcf_1000_genomes_filtered_no_non_ref_fields_header
 echo '{} completed'"
 # cat - (dash here is standart input, i.e. here it is output of awk)
 
-# Removing unneeded folders
+## 4. Removing unneeded folders
 mv  ~/project/variants/vcf_1000_genomes_filtered_no_non_ref ~/project/variants/vcf_1000_genomes_filtered_regulatory_elem_info_no_header
 rm -rf ~/project/variants/vcf_1000_genomes/ \
 ~/project/variants/vcf_1000_genomes_filtered/ 
@@ -76,4 +76,10 @@ rm -rf ~/project/variants/vcf_1000_genomes/ \
 mv ~/project/variants/vcf_1000_genomes_filtered_no_non_ref_fields_header/ ~/project/variants/vcf_1000_genomes_filtered_no_regulatory_elem_info_header
 rm -rf ~/project/variants/vcf_1000_genomes_filtered_no_non_ref_fields 
 
-
+## 5. readme
+printf "\
+vcf_1000_genomes_filtered_regulatory_elem_info_no_header folder- contains unformatted .vcf files for each sample. Those files contain information on varients and \
+regulatory elements, but have no vcf header. ; \n \
+vcf_1000_genomes_filtered_no_regulatory_elem_info_header folder- contains formatted .vcf files for each sample. Those files contain information on variants only and no information \
+on regulatory elements. They have a header and 10 fields standard for a vcf file. Those files can be accepted as an input for SnpEff and SnpSift.; \n" >> \
+~/project/variants/readme.txt
