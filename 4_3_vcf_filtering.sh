@@ -73,14 +73,7 @@ mv  ~/project/variants/vcf_1000_genomes_filtered_no_non_ref ~/project/variants/v
 rm -rf ~/project/variants/vcf_1000_genomes/ \
 ~/project/variants/vcf_1000_genomes_filtered/ 
 
-mv ~/project/variants/vcf_1000_genomes_filtered_no_no_ref_fields_header/ ~/project/variants/vcf_1000_genomes_filtered_no_regulatory_elem_info_header
-
 mv ~/project/variants/vcf_1000_genomes_filtered_no_non_ref_fields_header/ ~/project/variants/vcf_1000_genomes_filtered_no_regulatory_elem_info_header
 rm -rf ~/project/variants/vcf_1000_genomes_filtered_no_non_ref_fields 
-
-#====================
-ls *.vcf.gz | \
-parallel -j 100 "\
-mv {} {.}"
 
 
