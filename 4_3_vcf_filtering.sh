@@ -78,8 +78,11 @@ rm -rf ~/project/variants/vcf_1000_genomes_filtered_no_non_ref_fields
 
 ## 5. readme
 printf "\
-vcf_1000_genomes_filtered_regulatory_elem_info_no_header folder- contains unformatted .vcf files for each sample. Those files contain information on varients and \
-regulatory elements, but have no vcf header. ; \n \
-vcf_1000_genomes_filtered_no_regulatory_elem_info_header folder- contains formatted .vcf files for each sample. Those files contain information on variants only and no information \
-on regulatory elements. They have a header and 10 fields standard for a vcf file. Those files can be accepted as an input for SnpEff and SnpSift.; \n" >> \
+vcf_1000_genomes_filtered_regulatory_elem_info_no_header folder- contains filtered .vcf files (non-ref only records were removed, \
+and only variants that fall into regulatory elements of interest were left) for each sample. Those .vcf files contain information on varients and \
+regulatory elements, but have no vcf header (they are not formatted). ; \n \
+vcf_1000_genomes_filtered_no_regulatory_elem_info_header folder- contains filtered .vcf files (non-ref only records were removed, \
+and only variants that fall into regulatory elements of interest were left) for each sample. Those files contain information on variants only \
+but no information on regulatory elements. They have a header and 10 fields standard for a vcf file (they are formatted). \
+Those files can be accepted as an input for SnpEff and SnpSift.; \n" >> \
 ~/project/variants/readme.txt
